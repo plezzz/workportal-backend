@@ -1,0 +1,52 @@
+/*Badge*/
+.badge-wheat {
+    background-color: wheat;
+    color: chocolate;
+}
+
+/*Text*/
+.text-chocolate {
+    color: #d2691e;
+}
+
+.text-wheat {
+    color: wheat;
+}
+
+.text-wrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+/*Background*/
+.bg-gray {
+    background-color: #fafafb;
+}
+
+.sticky-top-136px {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 136px;
+    /*z-index: 1020;*/
+}
+.sticky-top-search {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 66px;
+    z-index: 999;
+}
+
+@media only screen and (max-width: 992px) {
+    .question-summary{
+        float: none;
+    }
+    #questions > div.row{
+        justify-content: center;
+        margin-left: 1px;
+    }
+}
+
+.badge{
+    white-space: normal;
+}
