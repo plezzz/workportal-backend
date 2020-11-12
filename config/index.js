@@ -1,9 +1,10 @@
+const url = require('./secretURL')
 const env = process.env.NODE_ENV || 'development';
 
 const config = {
     development: {
         port: process.env.PORT || 3000,
-        dbURL: 'mongodb+srv://plezzz:vzSYTTms8vsIfuCD@cluster0.sfqdk.mongodb.net/workPortal?retryWrites=true&w=majority',
+        dbURL: url || 'mongodb://localhost:27017/WorkPortal',
         template: 'hbs',
         publicDir: 'public',
         cookie: 'x-auth-token',
@@ -13,5 +14,4 @@ const config = {
         pricePrecision: 100
     }
 };
-
 module.exports = config[env];

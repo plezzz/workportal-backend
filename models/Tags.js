@@ -7,7 +7,7 @@ module.exports = (mongoose) => {
     const tagSchema = new Schema({
         title: {
             type: String,
-            minlength: [4,errorTags.minTitle],
+            unique:true,
             required: [true, errorTags.name]
         },
         createdBy: {
@@ -15,9 +15,13 @@ module.exports = (mongoose) => {
             ref: "User",
             required: true
         },
-        editedBy:{
+        editedBy: {
             type: ObjectId,
-            ref: "User",
+            ref: "User"
+        },
+        isDisabled: {
+            type: Boolean,
+            default: false
         }
     }, {timestamps: true});
 

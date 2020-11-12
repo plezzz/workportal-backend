@@ -2,23 +2,13 @@ const {errorTags} = require('../config/messages')();
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
-    const {String, ObjectId, Boolean} = Schema.Types;
+    const {String, ObjectId} = Schema.Types;
 
-    const categorySchema = new Schema({
+    const jobSchema = new Schema({
         title: {
             type: String,
-            minlength: [4,errorTags.minTitle],
+            unique:true,
             required: [true, errorTags.name]
-        },
-        description: {
-            type: String,
-            minlength: [20, errorTags.minDesc],
-            maxlength: [50, errorTags.maxDesc],
-            required: [true, errorTags.description]
-        },
-        imageURL: {
-            type: String,
-            match: [/^((http|https):\/\/){1,1}(w{3,3}\.)?/, errorTags.imageURLHTTP],
         },
         createdBy: {
             type: ObjectId,
@@ -35,5 +25,5 @@ module.exports = (mongoose) => {
         }
     }, {timestamps: true});
 
-    return Model('Category', categorySchema);
+    return Model('Job', jobSchema);
 };

@@ -5,7 +5,7 @@ module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
     const {String, ObjectId} = Schema.Types;
 
-    const courseSchema = new Schema({
+    const knowledgeSchema = new Schema({
         title: {
             type: String,
             minlength: [4,errorKnowledge.minTitle],
@@ -27,13 +27,17 @@ module.exports = (mongoose) => {
             ref: "User",
             required: true
         },
-        usersEnrolled: [{
+        editedBy: {
             type: ObjectId,
             ref: "User"
-        }]
+        },
+        isDisabled: {
+            type: Boolean,
+            default: false
+        }
     }, {timestamps: true});
 
-    courseSchema.post('save', function (error, doc, next) {
+    knowledgeSchema.post('save', function (error, doc, next) {
         if (error.name === 'MongoError' && error.code === 11000) {
             next(errorKnowledge.alreadyInUseObj);
         } else {
@@ -41,5 +45,5 @@ module.exports = (mongoose) => {
         }
     });
 
-    return Model('Course', courseSchema);
+    return Model('Knowledge', knowledgeSchema);
 };

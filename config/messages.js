@@ -15,9 +15,10 @@ module.exports = (data = null) => {
                 errors: {error: {properties: {message: 'The given username is already is use!'}}}
             },
             minLengthUsername: 'The username should be at least 5 characters long',
-            minLengthPass: 'The password should be at least 5 characters long',
+            minLengthPass: 'The password should be at least 6 characters long',
             containsCharUsername: 'The username should consist only english letters and digits!',
             containsCharPassword: 'The password should consist only english letters and digits!',
+            job: 'Jobs title' + required
         },
         errorLogin: {
             password: 'The provided username or password does not matched'
@@ -39,5 +40,11 @@ module.exports = (data = null) => {
         errorTags: {
 
         },
+        errorVacation:{
+            name: 'Title'+required,
+            approvedByLead: 'Approve' + required,
+            from: 'Date' + required,
+            to: 'Date' + required,
+        }
     }
 };

@@ -3,7 +3,7 @@ const {errorRegister} = require('../config/messages')();
 
 module.exports = (mongoose, bcrypt) => {
     const {Schema, model: Model} = mongoose;
-    const {String, ObjectId} = Schema.Types;
+    const {String, ObjectId, Number, Boolean} = Schema.Types;
 
     const userSchema = new Schema({
         username: {
@@ -15,19 +15,53 @@ module.exports = (mongoose, bcrypt) => {
             index: true
         },
         email: {
+            type: String,
             required: [true, errorRegister.email],
+            unique: [true, errorRegister.alreadyInUse],
+            match: [/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, errorRegister.minLengthEmail],
+            index: true
         },
         password: {
             type: String,
-            minlength: [5, errorRegister.minLengthPass],
+            minlength: [6, errorRegister.minLengthPass],
             required: [true, errorRegister.password],
             match: [/^[a-zA-Z0-9]+$/, errorRegister.containsCharPassword],
             index: true
         },
-        courses: [{
+        jobTitle: {
             type: ObjectId,
-            ref: "Course"
-        }]
+            required: [true, errorRegister.job],
+            ref: 'Job'
+        },
+        isLead: {
+            type: Boolean,
+            default: false
+        },
+        leadTeam: {
+            type: ObjectId,
+            ref: 'Job'
+        },
+        editedBy: {
+            type: ObjectId,
+            ref: "User"
+        },
+        vacationDays: {
+            type: Number,
+            default: 0,
+        },
+        VacationDetails:[{
+            type: ObjectId,
+            ref: "Vacation"
+        }],
+        Role: {
+            type: String,
+            default: 'User',
+            enum: ['User']
+        },
+        isDisabled: {
+            type: Boolean,
+            default: false
+        }
     });
 
 
