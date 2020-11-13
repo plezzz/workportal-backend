@@ -1,4 +1,4 @@
-const url = require('./secretURL')
+const url = require('./secretURL');
 const env = process.env.NODE_ENV || 'development';
 
 const config = {

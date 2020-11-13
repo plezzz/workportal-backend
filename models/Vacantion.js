@@ -1,4 +1,4 @@
-const {errorVacation} = require('../config/messages')();
+const {errorCommon,errorVacation} = require('../config/messages')();
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
@@ -8,7 +8,7 @@ module.exports = (mongoose) => {
         title: {
             type: String,
             unique: true,
-            required: [true, errorVacation.name]
+            required: [true, errorCommon.required('Title')]
         },
         description: {
             type: String,
@@ -25,11 +25,11 @@ module.exports = (mongoose) => {
         },
         from: {
             type: Date,
-            required: [true, errorVacation.from]
+            required: [true, errorCommon.required('From date')]
         },
         to: {
             type: Date,
-            required: [true, errorVacation.to]
+            required: [true, errorCommon.required('To date')]
         },
         isApprovedByLead: {
             type: Boolean,

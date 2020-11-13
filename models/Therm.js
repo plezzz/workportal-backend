@@ -1,9 +1,8 @@
 const {errorCommon,errorKnowledge} = require('../config/messages')();
 
-
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
-    const {String, ObjectId, Boolean,} = Schema.Types;
+    const {String, ObjectId, Boolean} = Schema.Types;
 
     const knowledgeSchema = new Schema({
         title: {
@@ -24,7 +23,7 @@ module.exports = (mongoose) => {
         },
         category: {
             type: ObjectId,
-            ref: "CategoryKnowledge",
+            ref: "CategoryTherm",
             required: true
         },
         createdBy: {

@@ -1,4 +1,4 @@
-const {errorTags} = require('../config/messages')();
+const {errorCommon} = require('../config/messages')();
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
@@ -8,7 +8,7 @@ module.exports = (mongoose) => {
         title: {
             type: String,
             unique:true,
-            required: [true, errorTags.name]
+            required: [true, errorCommon.required('Title')]
         },
         createdBy: {
             type: ObjectId,

@@ -1,5 +1,5 @@
 const {saltRounds} = require('../config');
-const {errorRegister} = require('../config/messages')();
+const {errorCommon,errorRegister} = require('../config/messages')();
 
 module.exports = (mongoose, bcrypt) => {
     const {Schema, model: Model} = mongoose;
@@ -9,14 +9,14 @@ module.exports = (mongoose, bcrypt) => {
         username: {
             type: String,
             minlength: [5, errorRegister.minLengthUsername],
-            required: [true, errorRegister.username],
+            required: [true, errorCommon.required('Username')],
             unique: [true, errorRegister.alreadyInUse],
             match: [/^[a-zA-Z0-9]+$/, errorRegister.containsCharUsername],
             index: true
         },
         email: {
             type: String,
-            required: [true, errorRegister.email],
+            required: [true, errorCommon.required('Email')],
             unique: [true, errorRegister.alreadyInUse],
             match: [/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, errorRegister.minLengthEmail],
             index: true
@@ -24,13 +24,13 @@ module.exports = (mongoose, bcrypt) => {
         password: {
             type: String,
             minlength: [6, errorRegister.minLengthPass],
-            required: [true, errorRegister.password],
+            required: [true, errorCommon.required('Password')],
             match: [/^[a-zA-Z0-9]+$/, errorRegister.containsCharPassword],
             index: true
         },
         jobTitle: {
             type: ObjectId,
-            required: [true, errorRegister.job],
+            required: [true, errorCommon.required('Job position')],
             ref: 'Job'
         },
         isLead: {
@@ -75,7 +75,7 @@ module.exports = (mongoose, bcrypt) => {
 
     userSchema.pre('validate', function (next) {
         if (!this.repeatPassword) {
-            this.invalidate('repeatPassword', errorRegister.repeatPassword)
+            this.invalidate('repeatPassword', errorCommon.required('Repeat password'))
         }
         if (this.password !== this.repeatPassword) {
             this.invalidate('repeatPassword', errorRegister.dontMatch);

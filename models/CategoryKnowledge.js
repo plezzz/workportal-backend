@@ -1,24 +1,35 @@
-const {errorTags} = require('../config/messages')();
+const {errorCommon,errorTags} = require('../config/messages')();
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
-    const {String, ObjectId, Boolean} = Schema.Types;
+    const {String, ObjectId, Boolean, Number} = Schema.Types;
 
-    const categorySchema = new Schema({
+    const categoryKnowledgeSchema = new Schema({
         title: {
             type: String,
-            minlength: [4,errorTags.minTitle],
-            required: [true, errorTags.name]
+            minlength: [2,errorTags.minTitle],
+            required: [true, errorCommon.required('Title')]
         },
         description: {
             type: String,
-            minlength: [20, errorTags.minDesc],
-            maxlength: [50, errorTags.maxDesc],
+            minlength: [4, errorTags.minDesc],
             required: [true, errorTags.description]
         },
         imageURL: {
             type: String,
             match: [/^((http|https):\/\/){1,1}(w{3,3}\.)?/, errorTags.imageURLHTTP],
+        },
+        count: {
+            type: Number,
+            default: 0
+        },
+        listKnowledge: {
+            type:ObjectId,
+            ref: 'Knowledge'
+        },
+        listTags:{
+            type:ObjectId,
+            ref: 'Tag'
         },
         createdBy: {
             type: ObjectId,
@@ -35,5 +46,5 @@ module.exports = (mongoose) => {
         }
     }, {timestamps: true});
 
-    return Model('Category', categorySchema);
+    return Model('categoryKnowledge', categoryKnowledgeSchema);
 };
