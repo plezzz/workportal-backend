@@ -1,7 +1,7 @@
 const {User} = require('../models');
 const {jwt} = require('../utils');
 const {cookie} = require('../config');
-const {errorLogin} = require('../config/messages')()
+const {errorLogin} = require('../config/messages')
 
 let templateDir = (doc) => {
     return `./user/${doc}`
@@ -23,8 +23,8 @@ module.exports = {
     },
     post: {
         register(req, res, next) {
-            const {username, password, repeatPassword} = {...req.body};
-            User.create({username, password, repeatPassword})
+            const {username, email, jobTitle, password, repeatPassword} = {...req.body};
+            User.create({username, email, jobTitle, password, repeatPassword})
                 .then((user) => {
                     const token = jwt.createToken(user._id);
 

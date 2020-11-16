@@ -1,0 +1,990 @@
+<!--    <div class="m-3">-->
+<div class="row bg-gray pt-2 flex justify-content-center sticky-top-search">
+    <form action="#" method="post" class="form-inline my-2 my-lg-0">
+        <label for="searchKnowledge"></label>
+        <input class="form-control mr-sm-2" type="search" name="searchKnowledge" id="searchKnowledge"
+               placeholder="Търси знание">
+    </form>
+</div>
+<!--    </div>-->
+<div class="container-fluid" id="ps">
+    <div class="row">
+        <div class="mt-3 col-lg-2 col-sm-12 col-md-12" id="categoryQuestions">
+            <div class="sticky-top-136px text-center">
+                <p class="flex-wrap">Категории</p>
+
+                <span class="badge badge-pill badge-primary">Printers (17)</span>
+                <span class="badge badge-pill badge-warning">Cartridge (12)</span>
+                <hr>
+                <p class="flex-wrap">Популярни тагове</p>
+                <ul class="list-unstyled list-group" style="word-wrap: break-word !important;">
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-success">q2612a (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-success">ce435 (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-success">2600 (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-info">hp3600 (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-success">2160 (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-success">xerox3600 (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-info">M553 (4)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-success">cf410 (5)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-info">km4216 (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-info">lex c522 (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-info">5225 (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-success">HP LaserJet CP5225 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-success" > HP Color LaserJet CP5225 (32)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-info">xerox 3320 (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-success">ce505 (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-success">xerox 3100 (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-info">HP 4 plus (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-info">Dev roller (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-info">Brother TN2000 (12)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search/tags/tag">
+                            <span class="badge badge-pill badge-success">Brother tn3170 (12)</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <p class="flex-wrap">Легенда</p>
+                <div class="text-center">
+                    <span class="badge badge-pill badge-primary">Принтери</span>
+                    <span class="badge badge-pill badge-warning">Касети</span>
+                    <!--                    <span class="badge badge-pill badge-primary">Лазерни принтери</span>-->
+                    <!--                    <span class="badge badge-pill badge-warning">Тонер касети</span>-->
+                    <!--                    <span class="badge badge-pill badge-danger">Мастилени принтери</span>-->
+                    <!--                    <span class="badge badge-pill badge-warning">Мастилени касети</span>-->
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 col-lg-8 col-sm-12 col-md-12" id="questions">
+            <p class="modal-title text-center-mobile">Въпроси</p>
+            <div class="row">
+                <div class="btn-group-sm"><br>
+                    <button class="btn">Нови</button>
+                    <button class="btn">Стари</button>
+                    <button class="btn">Популярни</button>
+                    <button class="btn">Месец</button>
+                </div>
+            </div>
+            <hr>
+            <div class="container" id="questions-list">
+                <div class="card question-read" read="false">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card Title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="true">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card Title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="false">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="true">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="false">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="false">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="false">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="true">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="false">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="false">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="true">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="false">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="true">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="false">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="false">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="false">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="true">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card question-read" read="false">
+                    <div class="row g-0">
+                        <div class="col-lg-2 col-sm-12 col-md-12 off-float">
+                            <a class="question-summary narrow tagged-interesting " href="/question/id">
+                                <div class="votes">
+                                    <div class="mini-counts"><span title="0 votes">3</span></div>
+                                    <div>votes</div>
+                                </div>
+                                <div class="status answered">
+                                    <div class="mini-counts"><span title="2 answers">2</span></div>
+                                    <div>answers</div>
+                                </div>
+
+                                <div class="views">
+                                    <div class="mini-counts"><span title="24 views">24</span></div>
+                                    <div>views</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-1 col-sm-1 col-md-1"></div>
+                        <div class="col-lg-9 col-sm-12 col-md-12">
+                            <div class="card-body">
+                                <a href="/question/id"><h5 class="card-title">Card title</h5></a>
+                                <p class="card-text">
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-primary">Cartridge</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3320</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">ce505</span>
+                                    </a>
+                                    <a href="/search/tags/tag">
+                                        <span class="badge badge-pill badge-success">xerox 3100</span>
+                                    </a>
+                                    <small class="text-muted float-right">Last updated 3 mins ago</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 col-lg-2 col-sm-12 col-md-12 text-center" id="unAnsweredQuestions">
+            <div class="">
+                <p>Въпроси без отговор</p>
+                <div class="card mt-1">
+                    <div class="card-body">
+                        <a href="/question/id"><h5 class="card-title">Question Dummy</h5></a>
+                        <p class="card-text">
+                            <a href="/search/tags/tag"><span
+                                    class="badge badge-pill badge-primary">Printer</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card mt-1">
+                    <div class="card-body text-center">
+                        <a href="/question/id"><h5 class="card-title">Question Dummy</h5></a>
+                        <p class="card-text">
+                            <a href="/search/tags/tag"><span
+                                    class="badge badge-pill badge-primary">Printer</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card mt-1">
+                    <div class="card-body text-center">
+                        <a href="/question/id"><h5 class="card-title">Question Dummy</h5></a>
+                        <p class="card-text">
+                            <a href="/search/tags/tag"><span
+                                    class="badge badge-pill badge-primary">Printer</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card mt-1">
+                    <div class="card-body text-center">
+                        <a href="/question/id"><h5 class="card-title">Question Dummy</h5></a>
+                        <p class="card-text">
+                            <a href="/search/tags/tag"><span
+                                    class="badge badge-pill badge-primary">Printer</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card mt-1">
+                    <div class="card-body text-center">
+                        <a href="/question/id"><h5 class="card-title">Question Dummy</h5></a>
+                        <p class="card-text">
+                            <a href="/search/tags/tag"><span
+                                    class="badge badge-pill badge-primary">Printer</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                            <a href="/search/tags/tag"><span class="badge badge-pill badge-info">ce505</span></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,6 +9,7 @@ const getKnowledgeModel = require('./Knowledge');
 const getTagModel = require('./Tag');
 const getThermModel = require('./Therm');
 const getVacationModel = require('./Vacation');
+const getMessageModel = require('./Message');
 
 module.exports = {
     User: getUserModel(mongoose, bcrypt),
@@ -18,5 +19,6 @@ module.exports = {
     Knowledge: getKnowledgeModel(mongoose),
     Tag: getTagModel(mongoose),
     Therm: getThermModel(mongoose),
-    Vacation: getVacationModel(mongoose)
+    Vacation: getVacationModel(mongoose),
+    Messages: getMessageModel(mongoose)
 };

@@ -1,55 +1,62 @@
 <header class="sticky-top bg-dark">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="./index.html"><img class="logo" src="images/logo-chocolate-wheat.webp"
+            <a class="navbar-brand" href="/"><img class="logo" src="images/logo-chocolate-wheat.webp"
                                                              alt="logo-work-portal"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars text-chocolate fa-2x"></i>
-            </button>
+            {{#if isLogged}}
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars text-chocolate fa-2x"></i>
+                </button>
 
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./index.html">Начало</a>
-                    </li>
-                    <!--    Allow if user is logged and have role Production or Service-->
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Отпуск</a>
-                    </li>
-                    <!--    Allow if user is logged and have role Production or Service-->
-                    <li class="nav-item">
-                        <a class="nav-link" href="./knowledge.html">Знание</a>
-                    </li>
-                    <!--    Allow for all-->
-                    <li class="nav-item">
-                        <a class="nav-link text-nowrap" href="#">Указания и Правила</a>
-                    </li>
-                    <!--    Allow if user is logged and have role Production -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Списък принтери</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fa fa-envelope-o fa-lg text-chocolate">
-                            </i><span class="badge badge-wheat smallBadge">9+</span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Име
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Профил</a>
-                            <a class="dropdown-item" href="#">Настройки</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Изход</a>
-                        </div>
-                    </li>
-                </ul>
-                <!--                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>-->
-            </div>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./">Начало</a>
+                        </li>
+                        <!--    Allow if user is logged and have role Production or Service-->
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Отпуск</a>
+                        </li>
+                        <!--    Allow if user is logged and have role Production or Service-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/knowledge">Знание</a>
+                        </li>
+                        <!--    Allow for all-->
+                        <li class="nav-item">
+                            <a class="nav-link text-nowrap" href="#">Указания и Правила</a>
+                        </li>
+                        <!--    Allow if user is logged and have role Production -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Списък принтери</a>
+                        </li>
+                        {{#if isAdmin}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Админ</a>
+                            </li>
+                        {{/if}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-envelope-o fa-lg text-chocolate">
+                                </i><span class="badge badge-wheat smallBadge">9+</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Име
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Профил</a>
+                                <a class="dropdown-item" href="#">Настройки</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Изход</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <!--                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>-->
+                </div>
+            {{/if}}
         </nav>
     </div>
 </header>

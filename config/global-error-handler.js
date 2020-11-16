@@ -1,7 +1,14 @@
 const {cookie} = require('./');
-const {errorLogin} = require('../config/messages')()
+const {errorLogin} = require('../config/messages')
 
 module.exports = function globalErrorHandler(err, req, res, next) {
+    console.log(err);
+    console.log('====================')
+    console.log('The message is')
+    console.log(err.message)
+    console.log('========or=========')
+    console.log(err._message)
+    console.log('====================')
     let message = [err] || ['SERVER ERROR'];
     if (res.locals.validationErrorViewName) {
         res.render(res.locals.validationErrorViewName, {errors: err, ...req.body});
@@ -33,6 +40,11 @@ module.exports = function globalErrorHandler(err, req, res, next) {
     if (err._message === 'Course validation failed' || err._message === 'Validation failed') {
         let messages = normalizeErrors(err.errors)
         render('course/create', messages, true)
+        return;
+    }
+    if (err._message === 'Knowledge validation failed' || err._message === 'Validation failed') {
+        let messages = normalizeErrors(err.errors)
+        render('knowledge/create', messages, true)
         return;
     }
     if (err._message === 'User validation failed') {

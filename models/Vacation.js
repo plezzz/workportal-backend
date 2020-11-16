@@ -1,8 +1,8 @@
-const {errorCommon,errorVacation} = require('../config/messages')();
+const {errorCommon, errorVacation} = require('../config/messages');
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
-    const {String, ObjectId, Date} = Schema.Types;
+    const {String, ObjectId, Date, Boolean} = Schema.Types;
 
     const vacationSchema = new Schema({
         title: {
@@ -39,15 +39,14 @@ module.exports = (mongoose) => {
             type: Boolean,
             default: false
         },
+        status: {
+            type: String,
+            default: 'В изчакване',
+            enum: ['за одобрение от началник', 'за одобрение от шеф', 'одобрена', 'отказана']
+        },
         createdBy: {
             type: ObjectId,
             ref: "User",
-            required: true
-        },
-        status: {
-            type: string,
-            default: 'В изчакване',
-            enum: ['за одобрение от началник','за одобрение от шеф','одобрена', 'отказана']
         },
         editedBy: {
             type: ObjectId,

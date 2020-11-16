@@ -1,5 +1,5 @@
 const {saltRounds} = require('../config');
-const {errorCommon,errorRegister} = require('../config/messages')();
+const {errorCommon, errorRegister} = require('../config/messages');
 
 module.exports = (mongoose, bcrypt) => {
     const {Schema, model: Model} = mongoose;
@@ -8,30 +8,30 @@ module.exports = (mongoose, bcrypt) => {
     const userSchema = new Schema({
         username: {
             type: String,
-            minlength: [5, errorRegister.minLengthUsername],
+            minlength: [3, errorCommon.minLength('username', 3)],
             required: [true, errorCommon.required('Username')],
-            unique: [true, errorRegister.alreadyInUse],
+            unique: [true, errorCommon.alreadyInUse('username')],
             match: [/^[a-zA-Z0-9]+$/, errorRegister.containsCharUsername],
             index: true
         },
         email: {
             type: String,
             required: [true, errorCommon.required('Email')],
-            unique: [true, errorRegister.alreadyInUse],
+            unique: [true, errorCommon.alreadyInUse('email')],
             match: [/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, errorRegister.minLengthEmail],
             index: true
         },
         password: {
             type: String,
-            minlength: [6, errorRegister.minLengthPass],
+            minlength: [4, errorCommon.minLength('password', 4)],
             required: [true, errorCommon.required('Password')],
             match: [/^[a-zA-Z0-9]+$/, errorRegister.containsCharPassword],
             index: true
         },
         jobTitle: {
-            type: ObjectId,
+            type: String,
             required: [true, errorCommon.required('Job position')],
-            ref: 'Job'
+            //ref: 'Job'
         },
         isLead: {
             type: Boolean,
@@ -47,17 +47,25 @@ module.exports = (mongoose, bcrypt) => {
         },
         vacationDays: {
             type: Number,
-            default: 0,
+            default: 20,
         },
-        VacationDetails:[{
+        VacationDetails: [{
             type: ObjectId,
             ref: "Vacation"
+        }],
+        message: [{
+            type: ObjectId,
+            ref: "Message"
         }],
         Role: {
             type: String,
             default: 'User',
-            enum: ['User']
+            enum: ['User', 'Admin']
         },
+        listKnowledge: [{
+            type: ObjectId,
+            ref: 'Knowledge'
+        }],
         isDisabled: {
             type: Boolean,
             default: false
@@ -91,7 +99,7 @@ module.exports = (mongoose, bcrypt) => {
 
     userSchema.post('save', function (error, doc, next) {
         if (error.name === 'MongoError' && error.code === 11000) {
-            next(errorRegister.alreadyInUseObj);
+            next(errorCommon.alreadyInUseObj('User', 'username/email'));
         } else {
             next(error);
         }

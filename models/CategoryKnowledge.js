@@ -1,4 +1,4 @@
-const {errorCommon,errorTags} = require('../config/messages')();
+const {errorCommon} = require('../config/messages');
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
@@ -7,34 +7,34 @@ module.exports = (mongoose) => {
     const categoryKnowledgeSchema = new Schema({
         title: {
             type: String,
-            minlength: [2,errorTags.minTitle],
+            unique: [true, errorCommon.alreadyInUse('title')],
+            minlength: [2, errorCommon.minLength('title', 2)],
             required: [true, errorCommon.required('Title')]
         },
         description: {
             type: String,
-            minlength: [4, errorTags.minDesc],
-            required: [true, errorTags.description]
+            minlength: [4, errorCommon.minLength('description', 4)],
+            required: [true, errorCommon.required('Description')]
         },
         imageURL: {
             type: String,
-            match: [/^((http|https):\/\/){1,1}(w{3,3}\.)?/, errorTags.imageURLHTTP],
+            match: [/^((http|https):\/\/){1,1}(w{3,3}\.)?/, errorCommon.imageURL],
         },
         count: {
             type: Number,
             default: 0
         },
-        listKnowledge: {
-            type:ObjectId,
+        listKnowledge: [{
+            type: ObjectId,
             ref: 'Knowledge'
-        },
-        listTags:{
-            type:ObjectId,
+        }],
+        listTags: [{
+            type: ObjectId,
             ref: 'Tag'
-        },
+        }],
         createdBy: {
             type: ObjectId,
             ref: "User",
-            required: true
         },
         editedBy: {
             type: ObjectId,
@@ -46,5 +46,13 @@ module.exports = (mongoose) => {
         }
     }, {timestamps: true});
 
-    return Model('categoryKnowledge', categoryKnowledgeSchema);
+    categoryKnowledgeSchema.post('save', function (error, doc, next) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            next(errorCommon.alreadyInUseObj('CategoryKnowledge', 'title'));
+        } else {
+            next(error);
+        }
+    });
+
+    return Model('CategoryKnowledge', categoryKnowledgeSchema);
 };

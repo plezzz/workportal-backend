@@ -1,4 +1,5 @@
-module.exports = function checkAuth(shouldBeAuthenticated) {
+const {User} = require('../models')
+module.exports = function checkAuth(shouldBeAuthenticated, shouldBeAuthorized=false) {
     return function (req, res, next) {
         const isNotAuthWhenAuthIsRequired =
             shouldBeAuthenticated && !req.user;
@@ -8,6 +9,15 @@ module.exports = function checkAuth(shouldBeAuthenticated) {
         ) {
             res.redirect(isNotAuthWhenAuthIsRequired ? '/login' : '/');
             return;
+        }
+        if (shouldBeAuthorized) {
+            User
+                .findOne({_id: req.user._id})
+                .then(user=> {
+                  if (user.Role !== 'Admin'){
+                      next('Is not allowed')
+                  }
+            })
         }
         next();
     };

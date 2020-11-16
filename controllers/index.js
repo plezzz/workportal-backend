@@ -1,11 +1,13 @@
 const home = require('./home')
 const user = require('./user')
-const course = require('./course')
 const error = require('./error')
+const knowledge = require('./knowledge')
+const categoryKnowledge = require('./categoryKnowledge')
 
 module.exports = {
     home,
     user,
-    course,
-    error
+    error,
+    knowledge,
+    categoryKnowledge
 }

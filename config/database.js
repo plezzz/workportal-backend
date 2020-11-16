@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const dbConnectionString = require('./').dbURL;
-const messages = require("./messages")();
+const messages = require("./messages");
 
 const dbConnectionOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 };
 
 module.exports = () => {

@@ -1,116 +1,106 @@
-const {Knowledge, User} = require('../models');
-const {errorCourse} = require('../config/messages');
-
-let templateDir = (doc) => {
-    return `course/${doc}`
-};
+const {Knowledge, CategoryKnowledge, User} = require('../models');
+const {errorCommon} = require('../config/messages');
+const {tagsCheck} = require('../utils');
 
 module.exports = {
     get: {
-        all(req, res) {
+        all(req, res, next) {
             Knowledge
-                .find({})
-                .lean
-                .then(questions => {
-                    res.render(templateDir('questions'), {questions})
+                .find({isDisabled: false})
+                .populate('tags')
+                .populate('category')
+                .populate('createdBy')
+                .populate('editedBy')
+                .lean()
+                .then(categories => {
+                    res.render('knowledge/all', {categories})
                 })
-        },
-        create(req, res) {
-            res.render(templateDir('create'))
+                .catch(next)
         },
         details(req, res, next) {
-            let id = req.params.courseId;
-            let userID = req.user._id.toString();
-            let isCreator, isEnrolled = false;
-
             Knowledge
-                .findOne({_id: id})
+                .findOne({_id: req.params.id})
+                .populate('tags')
+                .populate('category')
+                .populate('createdBy')
+                .populate('editedBy')
                 .lean()
-                .then(course => {
-
-                    course.usersEnrolled.forEach(enrolledUser => {
-                        if (enrolledUser.toString() === userID) {
-                            isEnrolled = true
-                        }
-                    })
-                    course.createdBy.toString() === userID ? isCreator = true : isCreator = false;
-
-
-                    res
-                        .render(templateDir('details'), {course, isCreator, isEnrolled})
+                .then(category => {
+                    res.render('knowledge/details', {category})
                 })
                 .catch(next)
         },
-        edit(req, res, next) {
-            let id = req.params.courseId;
-            Course
-                .findOne({_id: id})
+        create(req, res) {
+            res.render('knowledge/create')
+        },
+        update(req, res, next) {
+            Knowledge
+                .findOne({_id: req.params.id})
+                .populate('tags')
+                .populate('category')
+                .populate('createdBy')
+                .populate('editedBy')
                 .lean()
-                .then(course => {
-                    res.render(templateDir('edit'), course)
+                .then(category => {
+                    res.render('knowledge/update', {category})
                 })
                 .catch(next)
         },
-        delete(req, res, next) {
-            let id = req.params.courseId;
-            Course
-                .deleteOne({_id: id})
-                .then(() => {
-                    res.redirect('/')
-                })
-                .catch(next)
-        },
-        enroll(req, res, next) {
-            let courseID = req.params.courseId;
-            let userID = req.user._id;
-            Promise.all([
-                User.updateOne({_id: userID}, {$push: {courses: courseID}}),
-                Course.updateOne({_id: courseID}, {$push: {usersEnrolled: userID}})
-            ]).then(() => {
-                res.redirect(`/course/details/${courseID}`)
-            })
-                .catch(next)
-        }
     },
 
     post: {
-        create: function (req, res, next) {
+        create: async function (req, res, next) {
             const createdBy = req.user._id;
-            let {title, description, imageURL, duration} = req.body;
-
-            Course.create({title, description, imageURL, duration, createdBy})
-                .then(() => {
-                    res.redirect('/')
+            let {title, description, imageURL, category, tags} = req.body;
+            tags = await tagsCheck(tags)
+            Knowledge
+                .create({title, description, imageURL, category, tags, createdBy})
+                .then((knowledge) => {
+                    Promise.all([
+                        CategoryKnowledge.updateOne({_id: category,}, {
+                            $push: {listKnowledge: knowledge._id, listTags: {$each: tags}},
+                            $inc: {count: 1}
+                        }),
+                        User.updateOne({_id: createdBy}, {$push: {listKnowledge: knowledge._id}})
+                    ])
+                    return knowledge
+                })
+                .then(knowledge => {
+                    res.send(knowledge)
+                    //res.redirect('/')
                 })
                 .catch(next)
         },
-        edit(req, res, next) {
-            let id = req.params.courseId;
-            let {title, description, imageURL, duration} = req.body;
-
-            Course
-                .updateOne({_id: id}, {
-                        title,
-                        description,
-                        imageURL,
-                        duration
-                    }, {runValidators: true}, function (err, result) {
+        update(req, res, next) {
+            const id = req.params.id;
+            const editedBy = req.user._id;
+            let {title, description, imageURL, category, tags} = req.body;
+            tags = tagsCheck(tags)
+            Knowledge
+                .updateOne({_id: id}, {title, description, imageURL, category, tags, editedBy},
+                    {runValidators: true}, function (err) {
                         if (err) {
-                            console.log(err)
                             if (err.code === 11000) {
-                                next(errorCourse.alreadyInUseObj);
-
+                                next(errorCommon.alreadyInUseObj('CategoryKnowledge', 'title'));
                             }
                         }
                     }
                 )
                 .then(() => {
                     res.status(204);
-                    res.redirect(`/course/details/${id}`)
+                    res.redirect(`/knowledge/details/${id}`)
                 })
                 .catch(next)
-        },
+        }
+        ,
+        delete(req, res, next) {
+            let id = req.params.id;
+            Knowledge
+                .deleteOne({_id: id})
+                .then(() => {
+                    res.redirect('/')
+                })
+                .catch(next)
+        }
     }
-};
-
-
+}

@@ -1,19 +1,23 @@
-const {errorCommon} = require('../config/messages')();
+const {errorCommon} = require('../config/messages');
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
-    const {String, ObjectId} = Schema.Types;
+    const {String, ObjectId, Boolean, Number} = Schema.Types;
 
     const tagSchema = new Schema({
         title: {
             type: String,
-            unique:true,
-            required: [true, errorCommon.required('Title')]
+            unique: true,
+            required: [true, errorCommon.required('Title')],
+            index: true
+        },
+        count: {
+            type: Number,
+            default: 0
         },
         createdBy: {
             type: ObjectId,
             ref: "User",
-            required: true
         },
         editedBy: {
             type: ObjectId,

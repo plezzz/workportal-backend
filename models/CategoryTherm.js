@@ -1,4 +1,4 @@
-const {errorCommon,errorTags} = require('../config/messages')();
+const {errorCommon} = require('../config/messages');
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
@@ -7,18 +7,17 @@ module.exports = (mongoose) => {
     const categoryThermSchema = new Schema({
         title: {
             type: String,
-            minlength: [4, errorTags.minTitle],
+            minlength: [4, errorCommon.minLength('title',4)],
             required: [true, errorCommon.required('Title')]
         },
         description: {
             type: String,
-            minlength: [20, errorTags.minDesc],
-            maxlength: [50, errorTags.maxDesc],
+            minlength: [20, errorCommon.minLength('description',20)],
             required: [true, errorCommon.required('Description')]
         },
         imageURL: {
             type: String,
-            match: [/^((http|https):\/\/){1,1}(w{3,3}\.)?/, errorTags.imageURLHTTP],
+            match: [/^((http|https):\/\/){1,1}(w{3,3}\.)?/, errorCommon.imageURL],
         },
         count: {
             type: Number,
@@ -31,7 +30,6 @@ module.exports = (mongoose) => {
         createdBy: {
             type: ObjectId,
             ref: "User",
-            required: true
         },
         editedBy: {
             type: ObjectId,

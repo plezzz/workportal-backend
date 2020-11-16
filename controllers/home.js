@@ -1,13 +1,13 @@
-const {User} = require('../models');
 const titlePage = 'Начало'
 
 module.exports = {
     get: {
-        home(req, res, next) {
+        home(req, res) {
             if (req.user) {
-                res.render('/home')
+                res.render('home/home',{titlePage})
+                return
             }
-            res.render('/login')
+            res.render('user/login')
         }
     }
 };

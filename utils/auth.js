@@ -12,9 +12,11 @@ module.exports = (req, res, next) => {
 
     verifyToken(token)
         .then(({_id}) => User.findOne({_id}))
-        .then(({username, _id}) => {
+        .then(({username, _id, Role}) => {
+            let isAdmin = Role === 'Admin';
             req.user = {username, _id};
             res.locals.isLogged = Boolean(req.user);
+            res.locals.isAdmin = isAdmin;
             res.locals.username = username;
             next();
         })
