@@ -1,13 +1,12 @@
-const {CategoryKnowledge} = require('../models');
+const {CategoryTerm} = require('../models');
 const {errorCommon} = require('../config/messages');
 
 module.exports = {
     get: {
         all(req, res, next) {
-            CategoryKnowledge
+            CategoryTerm
                 .find({isDisabled: false})
-                .populate('listKnowledge')
-                .populate('listTags')
+                .populate('listTerms')
                 .lean()
                 .then(categories => {
                     res.render('categoryKnowledge/all', {categories})
@@ -15,10 +14,9 @@ module.exports = {
                 .catch(next)
         },
         details(req, res, next) {
-            CategoryKnowledge
-                .findOne({_id: req.params.id})
-                .populate('listKnowledge')
-                .populate('listTags')
+            CategoryTerm
+                .findOne({_id:req.params.id})
+                .populate('listTerms')
                 .lean()
                 .then(category => {
                     res.render('categoryKnowledge/details', {category})
@@ -29,10 +27,9 @@ module.exports = {
             res.render('categoryKnowledge/create')
         },
         update(req, res, next) {
-            CategoryKnowledge
-                .findOne({_id: req.params.id})
-                .populate('listKnowledge')
-                .populate('listTags')
+            CategoryTerm
+                .findOne({_id:req.params.id})
+                .populate('listTerms')
                 .lean()
                 .then(category => {
                     res.render('categoryKnowledge/update', {category})
@@ -46,7 +43,7 @@ module.exports = {
             const createdBy = req.user._id;
             let {title, description, imageURL} = req.body;
 
-            CategoryKnowledge.create({title, description, imageURL, createdBy})
+            CategoryTerm.create({title, description, imageURL, createdBy})
                 .then(() => {
                     res.redirect('/')
                 })
@@ -57,12 +54,12 @@ module.exports = {
             const editedBy = req.user._id;
             let {title, description, imageURL} = req.body;
 
-            CategoryKnowledge
-                .updateOne({_id: id}, {title, description, imageURL, editedBy},
+            CategoryTerm
+                .updateOne({_id: id}, {title, description, imageURL,editedBy},
                     {runValidators: true}, function (err) {
                         if (err) {
                             if (err.code === 11000) {
-                                next(errorCommon.alreadyInUseObj('CategoryKnowledge', 'title'));
+                                next(errorCommon.alreadyInUseObj('CategoryTerms','title'));
                             }
                         }
                     }
@@ -75,7 +72,7 @@ module.exports = {
         },
         delete(req, res, next) {
             let id = req.params.id;
-            CategoryKnowledge
+            CategoryTerm
                 .deleteOne({_id: id})
                 .then(() => {
                     res.redirect('/')

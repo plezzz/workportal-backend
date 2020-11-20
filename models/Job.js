@@ -10,6 +10,14 @@ module.exports = (mongoose) => {
             unique:true,
             required: [true, errorCommon.required('Title')]
         },
+        employees:[{
+           type: ObjectId,
+           ref: "User"
+        }],
+        lead:{
+            type: ObjectId,
+            ref: "User",
+        },
         createdBy: {
             type: ObjectId,
             ref: "User",
@@ -23,6 +31,14 @@ module.exports = (mongoose) => {
             default: false
         }
     }, {timestamps: true});
+
+    jobSchema.post('save', function (error, doc, next) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            next(errorCommon.alreadyInUseObj('Tag', 'title'));
+        } else {
+            next(error);
+        }
+    });
 
     return Model('Job', jobSchema);
 };

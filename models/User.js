@@ -29,9 +29,9 @@ module.exports = (mongoose, bcrypt) => {
             index: true
         },
         jobTitle: {
-            type: String,
+            type: ObjectId,
             required: [true, errorCommon.required('Job position')],
-            //ref: 'Job'
+            ref: 'Job'
         },
         isLead: {
             type: Boolean,
@@ -45,6 +45,10 @@ module.exports = (mongoose, bcrypt) => {
             type: ObjectId,
             ref: "User"
         },
+        createdBy: {
+            type: ObjectId,
+            ref: "User"
+        },
         vacationDays: {
             type: Number,
             default: 20,
@@ -53,18 +57,26 @@ module.exports = (mongoose, bcrypt) => {
             type: ObjectId,
             ref: "Vacation"
         }],
-        message: [{
+        messageReceived: [{
+            type: ObjectId,
+            ref: "Message"
+        }],
+        messageSend: [{
             type: ObjectId,
             ref: "Message"
         }],
         Role: {
             type: String,
-            default: 'User',
-            enum: ['User', 'Admin']
+            default: 'Employee',
+            enum: ['Employee', 'Technician', "Support",'Admin','SAdmin']
         },
         listKnowledge: [{
             type: ObjectId,
             ref: 'Knowledge'
+        }],
+        listTerms: [{
+            type: ObjectId,
+            ref: 'Term'
         }],
         isDisabled: {
             type: Boolean,

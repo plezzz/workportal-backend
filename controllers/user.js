@@ -19,12 +19,68 @@ module.exports = {
             res
                 .clearCookie(cookie)
                 .redirect('/login')
-        }
+        },
+        all(req, res, next) {
+            User
+                .find({})
+                .populate('leadTeam', "-password")
+                .populate('createdBy', "-password")
+                .populate('editedBy', "-password")
+                .populate('VacationDetails')
+                .populate('messageReceived')
+                .populate('messageSend')
+                .populate('listKnowledge')
+                .populate('listTerms')
+                .lean()
+                .then(categories => {
+                    res.render('knowledge/all', {categories})
+                })
+                .catch(next)
+        },
+        details(req, res, next) {
+            User
+                .findOne({_id: req.params.id})
+                .populate('leadTeam', "-password")
+                .populate('createdBy', "-password")
+                .populate('editedBy', "-password")
+                .populate('VacationDetails', "-password")
+                .populate('messageReceived', "-password")
+                .populate('messageSend', "-password")
+                .populate('listKnowledge', "-password")
+                .populate('listTerms', "-password")
+                .lean()
+                .then(category => {
+                    res.render('knowledge/details', {category})
+                })
+                .catch(next)
+        },
+        create(req, res) {
+            res.render('knowledge/create')
+        },
+        update(req, res, next) {
+            User
+                .findOne({_id: req.params.id})
+                .populate('leadTeam', "-password")
+                .populate('createdBy', "-password")
+                .populate('editedBy', "-password")
+                .populate('VacationDetails', "-password")
+                .populate('messageReceived', "-password")
+                .populate('messageSend', "-password")
+                .populate('listKnowledge', "-password")
+                .populate('listTerms', "-password")
+                .lean()
+                .then(category => {
+                    res.render('knowledge/update', {category})
+                })
+                .catch(next)
+        },
     },
     post: {
         register(req, res, next) {
-            const {username, email, jobTitle, password, repeatPassword} = {...req.body};
-            User.create({username, email, jobTitle, password, repeatPassword})
+            const createdBy = req.user._id
+
+            const {username, email, jobTitle, password, repeatPassword, leadTeam} = {...req.body};
+            User.create({username, email, jobTitle, password, repeatPassword, leadTeam})
                 .then((user) => {
                     const token = jwt.createToken(user._id);
 

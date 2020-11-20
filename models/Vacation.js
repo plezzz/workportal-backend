@@ -5,23 +5,20 @@ module.exports = (mongoose) => {
     const {String, ObjectId, Date, Boolean} = Schema.Types;
 
     const vacationSchema = new Schema({
-        title: {
-            type: String,
-            unique: true,
-            required: [true, errorCommon.required('Title')]
-        },
         description: {
             type: String,
         },
         approvedByLead: {
             type: ObjectId,
             ref: 'User',
-            required: [true, errorVacation.approvedByLead]
         },
         approvedByAdmin: {
             type: ObjectId,
             ref: 'User',
-            required: [true, errorVacation.approvedByLead]
+        },
+        replacement:{
+            type: ObjectId,
+            ref: 'User',
         },
         from: {
             type: Date,

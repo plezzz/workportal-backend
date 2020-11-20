@@ -1,64 +1,59 @@
-const {CategoryKnowledge} = require('../models');
+const {Tag} = require('../models');
 const {errorCommon} = require('../config/messages');
 
 module.exports = {
     get: {
         all(req, res, next) {
-            CategoryKnowledge
+            Tag
                 .find({isDisabled: false})
-                .populate('listKnowledge')
-                .populate('listTags')
                 .lean()
                 .then(categories => {
-                    res.render('categoryKnowledge/all', {categories})
+                    res.render('knowledge/all', {categories})
                 })
                 .catch(next)
         },
         details(req, res, next) {
-            CategoryKnowledge
+            Tag
                 .findOne({_id: req.params.id})
-                .populate('listKnowledge')
-                .populate('listTags')
                 .lean()
                 .then(category => {
-                    res.render('categoryKnowledge/details', {category})
+                    res.render('knowledge/details', {category})
                 })
                 .catch(next)
         },
         create(req, res) {
-            res.render('categoryKnowledge/create')
+            res.render('knowledge/create')
         },
         update(req, res, next) {
-            CategoryKnowledge
+            Tag
                 .findOne({_id: req.params.id})
-                .populate('listKnowledge')
-                .populate('listTags')
                 .lean()
                 .then(category => {
-                    res.render('categoryKnowledge/update', {category})
+                    res.render('knowledge/update', {category})
                 })
                 .catch(next)
         },
     },
 
     post: {
-        create: function (req, res, next) {
+        create: async function (req, res, next) {
             const createdBy = req.user._id;
-            let {title, description, imageURL} = req.body;
+            let {title} = req.body;
 
-            CategoryKnowledge.create({title, description, imageURL, createdBy})
-                .then(() => {
-                    res.redirect('/')
+            Tag
+                .create({title,createdBy})
+                .then(tag => {
+                    res.send(tag)
+                    //res.redirect('/')
                 })
                 .catch(next)
         },
         update(req, res, next) {
             const id = req.params.id;
             const editedBy = req.user._id;
-            let {title, description, imageURL} = req.body;
-
-            CategoryKnowledge
-                .updateOne({_id: id}, {title, description, imageURL, editedBy},
+            let {title}  = req.body;
+            Tag
+                .updateOne({_id: id}, {title, editedBy},
                     {runValidators: true}, function (err) {
                         if (err) {
                             if (err.code === 11000) {
@@ -67,15 +62,17 @@ module.exports = {
                         }
                     }
                 )
-                .then(() => {
+                .then(data => {
                     res.status(204);
-                    res.redirect(`/categoryKnowledge/details/${id}`)
+                    res.send(data);
                 })
                 .catch(next)
-        },
+        }
+        ,
         delete(req, res, next) {
-            let id = req.params.id;
-            CategoryKnowledge
+            const id = req.params.id;
+
+            Tag
                 .deleteOne({_id: id})
                 .then(() => {
                     res.redirect('/')
@@ -83,4 +80,4 @@ module.exports = {
                 .catch(next)
         }
     }
-};
+}

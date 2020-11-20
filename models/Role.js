@@ -11,9 +11,8 @@ module.exports = (mongoose) => {
             required: [true, errorCommon.required('Title')],
             index: true
         },
-        count: {
-            type: Number,
-            default: 0
+        description:{
+          type: String,
         },
         createdBy: {
             type: ObjectId,

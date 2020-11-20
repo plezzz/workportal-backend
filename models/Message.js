@@ -7,7 +7,6 @@ module.exports = (mongoose) => {
     const messageSchema = new Schema({
         title: {
             type: String,
-            unique:true,
             required: [true, errorCommon.required('Title')]
         },
         description:{

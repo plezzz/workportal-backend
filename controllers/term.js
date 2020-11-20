@@ -1,13 +1,11 @@
-const {Knowledge, CategoryKnowledge, User} = require('../models');
+const {Term, CategoryTerm, User} = require('../models');
 const {errorCommon} = require('../config/messages');
-const {tagsCheck} = require('../utils');
 
 module.exports = {
     get: {
         all(req, res, next) {
-            Knowledge
-                .find({isDisabled: false,isDeleted:false})
-                .populate('tags')
+            Term
+                .find({isDisabled: false, isDeleted: false})
                 .populate('category')
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
@@ -18,9 +16,8 @@ module.exports = {
                 .catch(next)
         },
         details(req, res, next) {
-            Knowledge
+            Term
                 .findOne({_id: req.params.id})
-                .populate('tags')
                 .populate('category')
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
@@ -34,9 +31,8 @@ module.exports = {
             res.render('knowledge/create')
         },
         update(req, res, next) {
-            Knowledge
+            Term
                 .findOne({_id: req.params.id})
-                .populate('tags')
                 .populate('category')
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
@@ -51,23 +47,22 @@ module.exports = {
     post: {
         create: async function (req, res, next) {
             const createdBy = req.user._id;
-            let {title, description, imageURL, category, tags} = req.body;
-            tags = await tagsCheck(tags)
-            Knowledge
-                .create({title, description, imageURL, category, tags, createdBy})
-                .then(knowledge => {
+            let {title, description, imageURL, category} = req.body;
+
+            Term
+                .create({title, description, imageURL, category, createdBy})
+                .then(term => {
                     Promise.all([
-                        CategoryKnowledge.updateOne({_id: category,}, {
-                            $push: {listKnowledge: knowledge._id},
-                            $addToSet: {listTags: tags},
+                        CategoryTerm.updateOne({_id: category,}, {
+                            $push: {listTerms: term._id},
                             $inc: {count: 1}
                         }),
-                        User.updateOne({_id: createdBy}, {$push: {listKnowledge: knowledge._id}})
+                        User.updateOne({_id: createdBy}, {$push: {listTerms: term._id}})
                     ])
-                    return knowledge
+                    return term
                 })
-                .then(knowledge => {
-                    res.send(knowledge)
+                .then(term => {
+                    res.send(term)
                     //res.redirect('/')
                 })
                 .catch(next)
@@ -75,10 +70,9 @@ module.exports = {
         update(req, res, next) {
             const id = req.params.id;
             const editedBy = req.user._id;
-            let {title, description, imageURL, category, tags} = req.body;
-            tags = tagsCheck(tags)
-            Knowledge
-                .updateOne({_id: id}, {title, description, imageURL, category, tags, editedBy},
+            let {title, description, imageURL, category} = req.body;
+            Term
+                .updateOne({_id: id}, {title, description, imageURL, category, editedBy},
                     {runValidators: true}, function (err) {
                         if (err) {
                             if (err.code === 11000) {
@@ -98,23 +92,18 @@ module.exports = {
             const id = req.params.id;
             const userID = req.user._id;
 
-            Knowledge
-                .findOneAndUpdate({_id: id}, {isDeleted: true},)
+            Term.findOneAndUpdate({_id: id}, {isDeleted: true},)
                 .then(data => {
                     return data.category
                 })
                 .then(categoryID => {
-                  return  Promise.all([
-                        CategoryKnowledge.updateOne({_id: categoryID,}, {
-                            $pullAll: {listKnowledge: [id],},
+                    Promise.all([
+                        CategoryTerm.updateOne({_id: categoryID,}, {
+                            $pullAll: {listTerms: [id],},
                             $inc: {count: -1}
                         }),
-                        User.updateOne({_id: userID}, {$pullAll: {listKnowledge: [id]}})
+                        User.updateOne({_id: userID}, {$pullAll: {listTerms: [id]}})
                     ])
-                })
-                .then(()=>{
-                    res.status(201)
-                    res.send({message: 'Success'})
                 })
                 .catch(next)
         }
