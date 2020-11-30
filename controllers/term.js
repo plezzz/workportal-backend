@@ -47,10 +47,10 @@ module.exports = {
     post: {
         create: async function (req, res, next) {
             const createdBy = req.user._id;
-            let {title, description, imageURL, category} = req.body;
+            let {title, description, image, category} = req.body;
 
             Term
-                .create({title, description, imageURL, category, createdBy})
+                .create({title, description, image, category, createdBy})
                 .then(term => {
                     Promise.all([
                         CategoryTerm.updateOne({_id: category,}, {
@@ -70,9 +70,9 @@ module.exports = {
         update(req, res, next) {
             const id = req.params.id;
             const editedBy = req.user._id;
-            let {title, description, imageURL, category} = req.body;
+            let {title, description, image, category} = req.body;
             Term
-                .updateOne({_id: id}, {title, description, imageURL, category, editedBy},
+                .updateOne({_id: id}, {title, description, image, category, editedBy},
                     {runValidators: true}, function (err) {
                         if (err) {
                             if (err.code === 11000) {

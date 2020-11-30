@@ -8,6 +8,7 @@ const tag = require('./tag')
 const job = require('./job')
 const message = require('./message')
 const vacation = require('./vacation')
+const role = require('./role')
 
 module.exports = {
     home,
@@ -19,5 +20,6 @@ module.exports = {
     tag,
     job,
     message,
-    vacation
+    vacation,
+    role
 }

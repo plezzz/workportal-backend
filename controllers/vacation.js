@@ -1,5 +1,5 @@
 const {Vacation} = require('../models');
-const {errorCommon} = require('../config/messages');
+//const {errorCommon} = require('../config/messages');
 
 module.exports = {
     get: {
@@ -54,7 +54,6 @@ module.exports = {
         create: async function (req, res, next) {
             const createdBy = req.user._id;
             let {description, replacement, from, to} = req.body;
-
             Vacation
                 .create({description, replacement, from, to, createdBy})
                 .then(vacation => {

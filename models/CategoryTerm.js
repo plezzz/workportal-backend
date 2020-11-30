@@ -7,26 +7,25 @@ module.exports = (mongoose) => {
     const categoryTermSchema = new Schema({
         title: {
             type: String,
-            minlength: [4, errorCommon.minLength('title',4)],
+            minlength: [4, errorCommon.minLength('title', 4)],
             required: [true, errorCommon.required('Title')]
         },
         description: {
             type: String,
-            minlength: [20, errorCommon.minLength('description',20)],
+            minlength: [20, errorCommon.minLength('description', 20)],
             required: [true, errorCommon.required('Description')]
         },
-        imageURL: {
-            type: String,
-            match: [/^((http|https):\/\/){1,1}(w{3,3}\.)?/, errorCommon.imageURL],
+        image: {
+            type: String
         },
         count: {
             type: Number,
             default: 0
         },
-        listTerms: {
+        listTerms: [{
             type: ObjectId,
             ref: 'Term'
-        },
+        }],
         createdBy: {
             type: ObjectId,
             ref: "User",

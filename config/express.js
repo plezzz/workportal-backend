@@ -4,7 +4,11 @@ const cookieParser = require('cookie-parser');
 const path = require('path')
 const {auth} = require('../utils');
 const {template, publicDir} = require('./')
+const express = require('express');
+const app = express();
 
+
+app.options('*', cors());
 const hbsConfig = {
     partialsDir: path.join(__basedir, "views/partials"),
     layoutsDir: path.join(__basedir, "views/layouts"),
@@ -13,7 +17,6 @@ const hbsConfig = {
 }
 
 module.exports = (express, app) => {
-
     app.use(express.static(publicDir));
     app.use(express.json());
     app.use(express.urlencoded({extended: false}));

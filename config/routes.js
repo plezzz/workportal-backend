@@ -1,4 +1,4 @@
-const {home, user, error, knowledge, categoryKnowledge, categoryTerm, tag, job, vacation, message} = require('../controllers');
+const {home, user, error, knowledge, categoryKnowledge, categoryTerm, tag, job, vacation, message,role} = require('../controllers');
 const {checkAuth} = require("../utils");
 
 module.exports = (app) => {
@@ -8,6 +8,7 @@ module.exports = (app) => {
     app.get('/login', user.get.login)
     app.get('/register', user.get.register)
     app.get('/logout', user.get.logout)
+    app.get('/user/all', user.get.all)
     app.post('/login', user.post.login)
     app.post('/register', user.post.register)
 
@@ -32,7 +33,7 @@ module.exports = (app) => {
 
     //Category Therm
     app.get('/categoryTherm/', checkAuth(true), categoryTerm.get.all)
-    app.get('/categoryTherm/:id', checkAuth(true), categoryTerm.get.one)
+    app.get('/categoryTherm/:id', checkAuth(true), categoryTerm.get.details)
     app.get('/categoryTherm/create', checkAuth(true), categoryTerm.get.create)
     app.get('/categoryTherm/update/:id', checkAuth(true), categoryTerm.get.update)
     app.post('/categoryTherm/create', checkAuth(true), categoryTerm.post.create)
@@ -41,7 +42,7 @@ module.exports = (app) => {
 
     //Tag
     app.get('/tag/', checkAuth(true), tag.get.all)
-    app.get('/tag/:id', checkAuth(true), tag.get.one)
+    app.get('/tag/:id', checkAuth(true), tag.get.details)
     app.get('/tag/create', checkAuth(true), tag.get.create)
     app.get('/tag/update/:id', checkAuth(true), tag.get.update)
     app.post('/tag/create', checkAuth(true), tag.post.create)
@@ -50,7 +51,7 @@ module.exports = (app) => {
 
     //Job
     app.get('/job/', checkAuth(true), job.get.all)
-    app.get('/job/:id', checkAuth(true), job.get.one)
+    app.get('/job/:id', checkAuth(true), job.get.details)
     app.get('/job/create', checkAuth(true), job.get.create)
     app.get('/job/update/:id', checkAuth(true), job.get.update)
     app.post('/job/create', checkAuth(true), job.post.create)
@@ -59,19 +60,28 @@ module.exports = (app) => {
 
     //Message
     app.get('/message/', checkAuth(true), message.get.all)
-    app.get('/message/:id', checkAuth(true), message.get.one)
+    app.get('/message/:id', checkAuth(true), message.get.details)
     app.get('/message/create', checkAuth(true), message.get.create)
     app.post('/message/create', checkAuth(true), message.post.create)
     app.post('/message/delete/:id', checkAuth(true), message.post.delete)
 
     //Vacation
     app.get('/vacation/', checkAuth(true), vacation.get.all)
-    app.get('/vacation/:id', checkAuth(true), vacation.get.one)
+    app.get('/vacation/:id', checkAuth(true), vacation.get.details)
     app.get('/vacation/create', checkAuth(true), vacation.get.create)
     app.get('/vacation/update/:id', checkAuth(true), vacation.get.update)
     app.post('/vacation/create', checkAuth(true), vacation.post.create)
     app.post('/vacation/update/:id', checkAuth(true), vacation.post.update)
     app.post('/vacation/delete/:id', checkAuth(true), vacation.post.delete)
+
+    //Role
+    app.get('/role', role.get.all)
+    app.get('/role/:id', checkAuth(true), role.get.details)
+    app.get('/role/create', checkAuth(true), role.get.create)
+    app.get('/role/update/:id', checkAuth(true), role.get.update)
+    app.post('/role/create', checkAuth(true), role.post.create)
+    app.post('/role/update/:id', checkAuth(true), role.post.update)
+    app.post('/role/delete/:id', checkAuth(true), role.post.delete)
 
     //Error
     app.get('*', error.get.displayError)

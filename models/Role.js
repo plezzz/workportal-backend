@@ -2,21 +2,34 @@ const {errorCommon} = require('../config/messages');
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
-    const {String, ObjectId, Boolean, Number} = Schema.Types;
+    const {String, ObjectId, Boolean} = Schema.Types;
 
-    const tagSchema = new Schema({
+    const roleSchema = new Schema({
         title: {
             type: String,
             unique: true,
             required: [true, errorCommon.required('Title')],
             index: true
         },
-        description:{
-          type: String,
+        status: {
+            type: Boolean,
+            index: true,
+            default: true
+        },
+        color: {
+            type: String,
+        },
+        description: {
+            type: String,
         },
         createdBy: {
             type: ObjectId,
             ref: "User",
+        },
+        completed: {
+            type: Boolean,
+            default: false,
+            index: true,
         },
         editedBy: {
             type: ObjectId,
@@ -28,7 +41,7 @@ module.exports = (mongoose) => {
         }
     }, {timestamps: true});
 
-    tagSchema.post('save', function (error, doc, next) {
+    roleSchema.post('save', function (error, doc, next) {
         if (error.name === 'MongoError' && error.code === 11000) {
             next(errorCommon.alreadyInUseObj('Tag', 'title'));
         } else {
@@ -36,5 +49,5 @@ module.exports = (mongoose) => {
         }
     });
 
-    return Model('Tag', tagSchema);
+    return Model('Role', roleSchema);
 };

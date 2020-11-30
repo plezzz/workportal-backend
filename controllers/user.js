@@ -29,11 +29,17 @@ module.exports = {
                 .populate('VacationDetails')
                 .populate('messageReceived')
                 .populate('messageSend')
-                .populate('listKnowledge')
+                .populate({
+                    path: 'listKnowledge',
+                    populate: {
+                        path: 'tags'
+                    }
+                })
                 .populate('listTerms')
+                .populate('tags')
                 .lean()
-                .then(categories => {
-                    res.render('knowledge/all', {categories})
+                .then(users => {
+                    res.send(users)
                 })
                 .catch(next)
         },
@@ -77,15 +83,26 @@ module.exports = {
     },
     post: {
         register(req, res, next) {
-            const createdBy = req.user._id
-
-            const {username, email, jobTitle, password, repeatPassword, leadTeam} = {...req.body};
-            User.create({username, email, jobTitle, password, repeatPassword, leadTeam})
+            console.log(req.body)
+            const createdBy = "5fafb2511c1b7b10bc09b191"
+            const {username, email, jobTitle, password, repeatPassword, leadTeam, firstName, lastName, role} = {...req.body};
+            User.create({
+                username,
+                email,
+                jobTitle,
+                password,
+                repeatPassword,
+                leadTeam,
+                createdBy,
+                firstName,
+                lastName,
+                role
+            })
                 .then((user) => {
                     const token = jwt.createToken(user._id);
-
-                    res.cookie(cookie, token, {maxAge: 3600000})
-                    res.redirect('/home');
+                    res.cookie(cookie, token, {httpOnly: true})
+                    res.status(200)
+                        .send(user);
                 })
                 .catch(next)
         },

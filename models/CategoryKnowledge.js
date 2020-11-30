@@ -16,9 +16,8 @@ module.exports = (mongoose) => {
             minlength: [4, errorCommon.minLength('description', 4)],
             required: [true, errorCommon.required('Description')]
         },
-        imageURL: {
+        image: {
             type: String,
-            match: [/^((http|https):\/\/){1,1}(w{3,3}\.)?/, errorCommon.imageURL],
         },
         count: {
             type: Number,

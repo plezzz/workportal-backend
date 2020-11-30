@@ -7,8 +7,8 @@ module.exports = {
             Role
                 .find({isDisabled: false})
                 .lean()
-                .then(categories => {
-                    res.render('knowledge/all', {categories})
+                .then(roles => {
+                    res.send(roles)
                 })
                 .catch(next)
         },
@@ -37,12 +37,14 @@ module.exports = {
 
     post: {
         create: async function (req, res, next) {
-            const createdBy = req.user._id;
-            let {title} = req.body;
+            console.log(req.body)
+            const createdBy = req.user._id || '5fafb2511c1b7b10bc09b191';
+            let {title, color, description} = req.body;
 
             Role
-                .create({title,createdBy})
+                .create({title, color, description, createdBy})
                 .then(tag => {
+                    res.status(200)
                     res.send(tag)
                     //res.redirect('/')
                 })
@@ -51,9 +53,9 @@ module.exports = {
         update(req, res, next) {
             const id = req.params.id;
             const editedBy = req.user._id;
-            let {title}  = req.body;
+            let {title, color, description, completed} = req.body;
             Role
-                .updateOne({_id: id}, {title, editedBy},
+                .updateOne({_id: id}, {title, color, description, completed, editedBy},
                     {runValidators: true}, function (err) {
                         if (err) {
                             if (err.code === 11000) {

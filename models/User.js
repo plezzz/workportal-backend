@@ -21,6 +21,14 @@ module.exports = (mongoose, bcrypt) => {
             match: [/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, errorRegister.minLengthEmail],
             index: true
         },
+        firstName: {
+            type:String,
+            required: [true, errorCommon.required('First Name')],
+        },
+        lastName: {
+            type:String,
+            required: [true, errorCommon.required('Last Name')],
+        },
         password: {
             type: String,
             minlength: [4, errorCommon.minLength('password', 4)],
@@ -28,11 +36,11 @@ module.exports = (mongoose, bcrypt) => {
             match: [/^[a-zA-Z0-9]+$/, errorRegister.containsCharPassword],
             index: true
         },
-        jobTitle: {
-            type: ObjectId,
-            required: [true, errorCommon.required('Job position')],
-            ref: 'Job'
-        },
+        // jobTitle: {
+        //     type: ObjectId,
+        //    // required: [true, errorCommon.required('Job position')],
+        //     ref: 'Job'
+        // },
         isLead: {
             type: Boolean,
             default: false
@@ -65,11 +73,10 @@ module.exports = (mongoose, bcrypt) => {
             type: ObjectId,
             ref: "Message"
         }],
-        Role: {
-            type: String,
-            default: 'Employee',
-            enum: ['Employee', 'Technician', "Support",'Admin','SAdmin']
-        },
+        role: [{
+            type: ObjectId,
+            ref: "Role"
+        }],
         listKnowledge: [{
             type: ObjectId,
             ref: 'Knowledge'

@@ -41,9 +41,9 @@ module.exports = {
     post: {
         create: function (req, res, next) {
             const createdBy = req.user._id;
-            let {title, description, imageURL} = req.body;
+            let {title, description, image} = req.body;
 
-            CategoryTerm.create({title, description, imageURL, createdBy})
+            CategoryTerm.create({title, description, image, createdBy})
                 .then(() => {
                     res.redirect('/')
                 })
@@ -52,10 +52,10 @@ module.exports = {
         update(req, res, next) {
             const id = req.params.id;
             const editedBy = req.user._id;
-            let {title, description, imageURL} = req.body;
+            let {title, description, image} = req.body;
 
             CategoryTerm
-                .updateOne({_id: id}, {title, description, imageURL,editedBy},
+                .updateOne({_id: id}, {title, description, image,editedBy},
                     {runValidators: true}, function (err) {
                         if (err) {
                             if (err.code === 11000) {

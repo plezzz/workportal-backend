@@ -1,14 +1,16 @@
 const {cookie} = require('./');
 const {errorLogin} = require('../config/messages')
 
-module.exports = function globalErrorHandler(err, req, res, next) {
-    console.log(err);
+module.exports = function globalErrorHandler(err, req, res) {
+    // console.log(err);
     console.log('====================')
     console.log('The message is')
     console.log(err.message)
     console.log('========or=========')
-    console.log(err._message)
+    console.log(err._message || 'other format')
     console.log('====================')
+    res.status(200)
+
     let message = [err] || ['SERVER ERROR'];
     if (res.locals.validationErrorViewName) {
         res.render(res.locals.validationErrorViewName, {errors: err, ...req.body});
@@ -54,17 +56,24 @@ module.exports = function globalErrorHandler(err, req, res, next) {
     }
 
     function normalizeErrors(errors) {
+        console.log(errors)
         let messages = [];
         Object.values(errors).forEach(error => {
-            messages.push(error.properties.message)
+            if (error.kind === 'ObjectId') {
+                messages.push(`${error.path} is undefined ${error.kind}`)
+            } else {
+                messages.push(error.properties.message)
+            }
         });
         return messages
     }
 
     function render(path, message, obj = null) {
         obj ? obj = req.body : null;
-        res.render(path, {message, obj});
+        res.send({message, obj})
+        //res.render(path, {message, obj});
     }
 
-    res.render('error/error', {message});
+    res.send(message)
+    //res.render('error/error', {message});
 };
