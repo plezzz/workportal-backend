@@ -1,7 +1,7 @@
 const {User} = require('../models');
 const {jwt} = require('../utils');
 const {cookie} = require('../config');
-const {errorLogin} = require('../config/messages')
+const {errorLogin} = require('../config/messages');
 
 let templateDir = (doc) => {
     return `./user/${doc}`
@@ -83,24 +83,26 @@ module.exports = {
     },
     post: {
         register(req, res, next) {
-            console.log(req.body)
-            const createdBy = "5fafb2511c1b7b10bc09b191"
+            console.log(req.body);
+            const createdBy = "5fafb2511c1b7b10bc09b191";
             const {username, email, jobTitle, password, repeatPassword, leadTeam, firstName, lastName, role} = {...req.body};
-            User.create({
-                username,
-                email,
-                jobTitle,
-                password,
-                repeatPassword,
-                leadTeam,
-                createdBy,
-                firstName,
-                lastName,
-                role
-            })
+
+            User
+                .create({
+                    username,
+                    email,
+                    jobTitle,
+                    password,
+                    repeatPassword,
+                    leadTeam,
+                    createdBy,
+                    firstName,
+                    lastName,
+                    role
+                })
                 .then((user) => {
                     const token = jwt.createToken(user._id);
-                    res.cookie(cookie, token, {httpOnly: true})
+                    res.cookie(cookie, token, {httpOnly: true});
                     res.status(200)
                         .send(user);
                 })
@@ -123,10 +125,10 @@ module.exports = {
 
                     const token = jwt.createToken(user._id);
 
-                    res.cookie(cookie, token, {maxAge: 3600000})
+                    res.cookie(cookie, token, {maxAge: 3600000});
                     res.redirect('/home');
                 })
                 .catch(next)
         }
     }
-}
+};

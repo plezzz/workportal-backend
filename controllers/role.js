@@ -16,8 +16,8 @@ module.exports = {
             Role
                 .findOne({_id: req.params.id})
                 .lean()
-                .then(category => {
-                    res.render('knowledge/details', {category})
+                .then(role => {
+                    res.send(role)
                 })
                 .catch(next)
         },
@@ -37,14 +37,14 @@ module.exports = {
 
     post: {
         create: async function (req, res, next) {
-            console.log(req.body)
+            console.log(req.body);
             const createdBy = req.user._id || '5fafb2511c1b7b10bc09b191';
             let {title, color, description} = req.body;
 
             Role
                 .create({title, color, description, createdBy})
                 .then(tag => {
-                    res.status(200)
+                    res.status(200);
                     res.send(tag)
                     //res.redirect('/')
                 })
@@ -82,4 +82,4 @@ module.exports = {
                 .catch(next)
         }
     }
-}
+};

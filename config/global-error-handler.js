@@ -1,21 +1,21 @@
 const {cookie} = require('./');
-const {errorLogin} = require('../config/messages')
+const {errorLogin} = require('../config/messages');
 
 module.exports = function globalErrorHandler(err, req, res) {
     // console.log(err);
-    console.log('====================')
-    console.log('The message is')
-    console.log(err.message)
-    console.log('========or=========')
-    console.log(err._message || 'other format')
-    console.log('====================')
-    res.status(200)
+    console.log('====================');
+    console.log('The message is');
+    console.log(err.message);
+    console.log('========or=========');
+    console.log(err._message || 'other format');
+    console.log('====================');
+    res.status(200);
 
     let message = [err] || ['SERVER ERROR'];
-    if (res.locals.validationErrorViewName) {
-        res.render(res.locals.validationErrorViewName, {errors: err, ...req.body});
-        return;
-    }
+    // if (res.locals.validationErrorViewName) {
+    //     res.send(res.locals.validationErrorViewName, {errors: err, ...req.body});
+    //     return;
+    // }
     if (err.message === 'BAD_REQUEST') {
         message = 'Bad Request!';
     } else if (err.message === 'UNAUTHORIZED') {
@@ -29,34 +29,34 @@ module.exports = function globalErrorHandler(err, req, res) {
     }
 
     if (Object.values(errorLogin).includes(err.message)) {
-        render('user/login', message, true)
+        render('user/login', message, true);
         return;
     }
 
     if (err._message === 'Login validation failed') {
-        let messages = normalizeErrors(err.errors)
-        render('user/login', messages, true)
+        let messages = normalizeErrors(err.errors);
+        render('user/login', messages, true);
         return;
     }
 
     if (err._message === 'Course validation failed' || err._message === 'Validation failed') {
-        let messages = normalizeErrors(err.errors)
-        render('course/create', messages, true)
+        let messages = normalizeErrors(err.errors);
+        render('course/create', messages, true);
         return;
     }
     if (err._message === 'Knowledge validation failed' || err._message === 'Validation failed') {
-        let messages = normalizeErrors(err.errors)
-        render('knowledge/create', messages, true)
+        let messages = normalizeErrors(err.errors);
+        render('knowledge/create', messages, true);
         return;
     }
     if (err._message === 'User validation failed') {
-        let messages = normalizeErrors(err.errors)
-        render('user/register', messages, true)
+        console.log('here');
+        let messages = normalizeErrors(err.errors);
+        render('user/register', messages, true);
         return;
     }
 
     function normalizeErrors(errors) {
-        console.log(errors)
         let messages = [];
         Object.values(errors).forEach(error => {
             if (error.kind === 'ObjectId') {
@@ -70,7 +70,7 @@ module.exports = function globalErrorHandler(err, req, res) {
 
     function render(path, message, obj = null) {
         obj ? obj = req.body : null;
-        res.send({message, obj})
+        res.send(message)
         //res.render(path, {message, obj});
     }
 
