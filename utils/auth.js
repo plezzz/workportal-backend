@@ -4,7 +4,7 @@ const {User} = require('../models')
 
 module.exports = (req, res, next) => {
     const token = req.cookies[cookie] || '';
-
+    res.header('Access-Control-Allow-Credentials', 'true');
     if (!token) {
         next()
         return;

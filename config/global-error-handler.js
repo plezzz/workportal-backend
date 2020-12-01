@@ -1,8 +1,8 @@
 const {cookie} = require('./');
 const {errorLogin} = require('../config/messages');
 
-module.exports = function globalErrorHandler(err, req, res) {
-    // console.log(err);
+module.exports = function globalErrorHandler(err, req, res, next) {
+   // console.log(err);
     console.log('====================');
     console.log('The message is');
     console.log(err.message);
@@ -50,7 +50,6 @@ module.exports = function globalErrorHandler(err, req, res) {
         return;
     }
     if (err._message === 'User validation failed') {
-        console.log('here');
         let messages = normalizeErrors(err.errors);
         render('user/register', messages, true);
         return;

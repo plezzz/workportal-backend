@@ -11,9 +11,10 @@ module.exports = (app) => {
     app.get('/user/all', user.get.all)
     app.post('/login', user.post.login)
     app.post('/register', user.post.register)
+    app.post('/logout', user.post.logout)
 
     //Category Knowledge
-    app.get('/categoryKnowledge/', checkAuth(true), categoryKnowledge.get.all)
+    app.get('/categoryKnowledge', checkAuth(true), categoryKnowledge.get.all)
     app.get('/categoryKnowledge/:id', checkAuth(true), categoryKnowledge.get.details)
     app.get('/categoryKnowledge/create', checkAuth(true), categoryKnowledge.get.create)
     app.get('/categoryKnowledge/update/:id', checkAuth(true), categoryKnowledge.get.update)
@@ -22,7 +23,7 @@ module.exports = (app) => {
     app.post('/categoryKnowledge/delete/:id', checkAuth(true), categoryKnowledge.post.delete)
 
     //Knowledge
-    app.get('/knowledge/', checkAuth(true), knowledge.get.all)
+    app.get('/knowledge', checkAuth(true), knowledge.get.all)
     app.get('/knowledge/:id', checkAuth(true), knowledge.get.details)
     app.get('/knowledge/create', checkAuth(true), knowledge.get.create)
     app.get('/knowledge/update/:id', checkAuth(true), knowledge.get.update)
@@ -32,7 +33,7 @@ module.exports = (app) => {
 
 
     //Category Therm
-    app.get('/categoryTherm/', checkAuth(true), categoryTerm.get.all)
+    app.get('/categoryTherm', checkAuth(true), categoryTerm.get.all)
     app.get('/categoryTherm/:id', checkAuth(true), categoryTerm.get.details)
     app.get('/categoryTherm/create', checkAuth(true), categoryTerm.get.create)
     app.get('/categoryTherm/update/:id', checkAuth(true), categoryTerm.get.update)
@@ -41,7 +42,7 @@ module.exports = (app) => {
     app.post('/categoryTherm/delete/:id', checkAuth(true), categoryTerm.post.delete)
 
     //Tag
-    app.get('/tag/', checkAuth(true), tag.get.all)
+    app.get('/tag', checkAuth(true), tag.get.all)
     app.get('/tag/:id', checkAuth(true), tag.get.details)
     app.get('/tag/create', checkAuth(true), tag.get.create)
     app.get('/tag/update/:id', checkAuth(true), tag.get.update)
@@ -50,7 +51,7 @@ module.exports = (app) => {
     app.post('/tag/delete/:id', checkAuth(true), tag.post.delete)
 
     //Job
-    app.get('/job/', checkAuth(true), job.get.all)
+    app.get('/job', job.get.all)
     app.get('/job/:id', checkAuth(true), job.get.details)
     app.get('/job/create', checkAuth(true), job.get.create)
     app.get('/job/update/:id', checkAuth(true), job.get.update)
@@ -59,14 +60,14 @@ module.exports = (app) => {
     app.post('/job/delete/:id', checkAuth(true), job.post.delete)
 
     //Message
-    app.get('/message/', checkAuth(true), message.get.all)
+    app.get('/message', checkAuth(true), message.get.all)
     app.get('/message/:id', checkAuth(true), message.get.details)
     app.get('/message/create', checkAuth(true), message.get.create)
     app.post('/message/create', checkAuth(true), message.post.create)
     app.post('/message/delete/:id', checkAuth(true), message.post.delete)
 
     //Vacation
-    app.get('/vacation/', checkAuth(true), vacation.get.all)
+    app.get('/vacation', checkAuth(true), vacation.get.all)
     app.get('/vacation/:id', checkAuth(true), vacation.get.details)
     app.get('/vacation/create', checkAuth(true), vacation.get.create)
     app.get('/vacation/update/:id', checkAuth(true), vacation.get.update)

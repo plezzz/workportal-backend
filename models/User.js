@@ -22,11 +22,11 @@ module.exports = (mongoose, bcrypt) => {
             index: true
         },
         firstName: {
-            type:String,
+            type: String,
             required: [true, errorCommon.required('First Name')],
         },
         lastName: {
-            type:String,
+            type: String,
             required: [true, errorCommon.required('Last Name')],
         },
         password: {
@@ -36,12 +36,20 @@ module.exports = (mongoose, bcrypt) => {
             match: [/^[a-zA-Z0-9]+$/, errorRegister.containsCharPassword],
             index: true
         },
-        // jobTitle: {
-        //     type: ObjectId,
-        //    // required: [true, errorCommon.required('Job position')],
-        //     ref: 'Job'
-        // },
+        jobTitle: {
+            type: ObjectId,
+            required: [true, errorCommon.required('Job position')],
+            ref: 'Job'
+        },
         isLead: {
+            type: Boolean,
+            default: false
+        },
+        isSupport: {
+            type: Boolean,
+            default: false
+        },
+        isAdmin: {
             type: Boolean,
             default: false
         },
@@ -73,10 +81,11 @@ module.exports = (mongoose, bcrypt) => {
             type: ObjectId,
             ref: "Message"
         }],
-        role: [{
-            type: ObjectId,
-            ref: "Role"
-        }],
+        // role: [{
+        //     type: ObjectId,
+        //     ref: "Role",
+        //     default: '5fc4079fa0d5884d6ce5835f'
+        // }],
         listKnowledge: [{
             type: ObjectId,
             ref: 'Knowledge'

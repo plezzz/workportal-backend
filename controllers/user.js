@@ -16,9 +16,8 @@ module.exports = {
             res.render(templateDir('register'))
         },
         logout(req, res) {
-            res
-                .clearCookie(cookie)
-                .redirect('/login')
+            res.clearCookie(cookie)
+            res.send({message: 'logged out'})
         },
         all(req, res, next) {
             User
@@ -83,10 +82,9 @@ module.exports = {
     },
     post: {
         register(req, res, next) {
-            console.log(req.body);
+            //console.log(req.body);
             const createdBy = "5fafb2511c1b7b10bc09b191";
-            const {username, email, jobTitle, password, repeatPassword, leadTeam, firstName, lastName, role} = {...req.body};
-
+            const {username, email, jobTitle, password, repeatPassword, leadTeam, firstName, lastName, isSupport, isAdmin} = {...req.body};
             User
                 .create({
                     username,
@@ -98,9 +96,11 @@ module.exports = {
                     createdBy,
                     firstName,
                     lastName,
-                    role
-                })
+                    isSupport,
+                    isAdmin
+                },)
                 .then((user) => {
+                    //  console.log(user)
                     const token = jwt.createToken(user._id);
                     res.cookie(cookie, token, {httpOnly: true});
                     res.status(200)
@@ -125,10 +125,15 @@ module.exports = {
 
                     const token = jwt.createToken(user._id);
 
-                    res.cookie(cookie, token, {maxAge: 3600000});
-                    res.redirect('/home');
+                    // res.header('Access-Control-Allow-Credentials', 'true');
+                    res.cookie(cookie, token, {httpOnly: true});
+                    res.send(user)
                 })
                 .catch(next)
+        },
+        logout(req, res) {
+            res.clearCookie(cookie)
+            res.send({message: 'logged out'})
         }
     }
 };

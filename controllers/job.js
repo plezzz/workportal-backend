@@ -9,8 +9,8 @@ module.exports = {
                 .populate('createdBy', "-password")
                 .populate('lead', "-password")
                 .lean()
-                .then(categories => {
-                    res.render('knowledge/all', {categories})
+                .then(jobs => {
+                    res.send(jobs);
                 })
                 .catch(next)
         },
