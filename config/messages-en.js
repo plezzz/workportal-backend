@@ -4,26 +4,23 @@ module.exports = {
         return `Server is ready, listening on port: ${port}.`
     },
     errorCommon: {
-        invalid: (s)=>{
-            return s + ' е неалиден/о!';
-        },
         required: (s) => {
-            return s + ' е задължително/a!';
+            return s + ' is require!';
         },
         minLength: (s, l) => {
-            return `${s} трябва да е най-малко ${l} символа`
+            return `The ${s} should be at least ${l} characters long`
         },
         maxLength: (s, l) => {
             return `The ${s} must be no longer than ${l} characters`
         },
         imageURL: 'The imageURL should starts with http or https',
         alreadyInUse: (s) => {
-            return `${s} вече се използва!`
+            return `The given ${s} is already is use!`
         },
         alreadyInUseObj: (w, s) => {
             return {
                 _message: `${w} validation failed`,
-                errors: {error: {properties: {message: `${s} вече се използва!`}}}
+                errors: {error: {properties: {message: `The given ${s} is already is use!`}}}
             }
         },
     },
@@ -33,10 +30,10 @@ module.exports = {
         containsCharPassword: 'The password should consist only english letters and digits!',
     },
     errorLogin: {
-        password: 'Потребителското име и/или паролата не съвпадат'
+        password: 'The provided username or password does not matched'
     },
     errorVacation: {
-        approvedByLead: 'Одобрението е задължително',
+        approvedByLead: 'Approve is required',
     }
 }
 

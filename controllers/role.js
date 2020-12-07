@@ -21,9 +21,6 @@ module.exports = {
                 })
                 .catch(next)
         },
-        create(req, res) {
-            res.render('knowledge/create')
-        },
         update(req, res, next) {
             Role
                 .findOne({_id: req.params.id})

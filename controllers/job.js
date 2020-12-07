@@ -6,10 +6,10 @@ module.exports = {
         all(req, res, next) {
             Job
                 .find({isDisabled: false})
-                .populate('createdBy', "-password")
-                .populate('lead', "-password")
                 .lean()
                 .then(jobs => {
+                    res.setHeader('Content-Type', 'application/json');
+                    res.status(200)
                     res.send(jobs);
                 })
                 .catch(next)
@@ -24,9 +24,6 @@ module.exports = {
                     res.render('knowledge/details', {category})
                 })
                 .catch(next)
-        },
-        create(req, res) {
-            res.render('knowledge/create')
         },
         update(req, res, next) {
             Job

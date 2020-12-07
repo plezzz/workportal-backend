@@ -10,35 +10,35 @@ module.exports = (mongoose, bcrypt) => {
             type: String,
             minlength: [3, errorCommon.minLength('username', 3)],
             required: [true, errorCommon.required('Username')],
-            unique: [true, errorCommon.alreadyInUse('username')],
+            unique: [true, errorCommon.alreadyInUse('Потребителско име')],
             match: [/^[a-zA-Z0-9]+$/, errorRegister.containsCharUsername],
             index: true
         },
         email: {
             type: String,
-            required: [true, errorCommon.required('Email')],
-            unique: [true, errorCommon.alreadyInUse('email')],
-            match: [/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, errorRegister.minLengthEmail],
+            required: [true, errorCommon.required('Имейлът')],
+            unique: [true, errorCommon.alreadyInUse('Имейлът')],
+            match: [/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, errorCommon.invalid('Имейлът')],
             index: true
         },
         firstName: {
             type: String,
-            required: [true, errorCommon.required('First Name')],
+            required: [true, errorCommon.required('Името')],
         },
         lastName: {
             type: String,
-            required: [true, errorCommon.required('Last Name')],
+            required: [true, errorCommon.required('Фамилията')],
         },
         password: {
             type: String,
-            minlength: [4, errorCommon.minLength('password', 4)],
-            required: [true, errorCommon.required('Password')],
+            minlength: [4, errorCommon.minLength('Парола', 4)],
+            required: [true, errorCommon.required('Парола')],
             match: [/^[a-zA-Z0-9]+$/, errorRegister.containsCharPassword],
             index: true
         },
         jobTitle: {
             type: ObjectId,
-            required: [true, errorCommon.required('Job position')],
+            required: [true, errorCommon.required('Отдел')],
             ref: 'Job'
         },
         isLead: {
@@ -98,7 +98,7 @@ module.exports = (mongoose, bcrypt) => {
             type: Boolean,
             default: false
         }
-    });
+    }, {timestamps: true});
 
 
     userSchema.virtual('repeatPassword')
@@ -111,7 +111,7 @@ module.exports = (mongoose, bcrypt) => {
 
     userSchema.pre('validate', function (next) {
         if (!this.repeatPassword) {
-            this.invalidate('repeatPassword', errorCommon.required('Repeat password'))
+            this.invalidate('repeatPassword', errorCommon.required('Повторение на паролата'))
         }
         if (this.password !== this.repeatPassword) {
             this.invalidate('repeatPassword', errorRegister.dontMatch);
@@ -127,7 +127,7 @@ module.exports = (mongoose, bcrypt) => {
 
     userSchema.post('save', function (error, doc, next) {
         if (error.name === 'MongoError' && error.code === 11000) {
-            next(errorCommon.alreadyInUseObj('User', 'username/email'));
+            next(errorCommon.alreadyInUseObj('User', 'Потребителското име/имейл'));
         } else {
             next(error);
         }

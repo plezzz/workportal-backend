@@ -7,7 +7,8 @@ module.exports = function checkAuth(shouldBeAuthenticated, shouldBeAuthorized=fa
             (isNotAuthWhenAuthIsRequired) ||
             (!shouldBeAuthenticated && req.user)
         ) {
-            res.redirect(isNotAuthWhenAuthIsRequired ? '/login' : '/');
+            res.send(isNotAuthWhenAuthIsRequired ? 'notAutorazed ' : 'authorized')
+           // res.redirect(isNotAuthWhenAuthIsRequired ? '/login' : '/');
             return;
         }
         if (shouldBeAuthorized) {

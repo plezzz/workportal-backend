@@ -25,9 +25,6 @@ module.exports = {
                 })
                 .catch(next)
         },
-        create(req, res) {
-            res.render('categoryKnowledge/create')
-        },
         update(req, res, next) {
             CategoryKnowledge
                 .findOne({_id: req.params.id})

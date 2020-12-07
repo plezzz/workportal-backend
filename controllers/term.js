@@ -27,9 +27,6 @@ module.exports = {
                 })
                 .catch(next)
         },
-        create(req, res) {
-            res.render('knowledge/create')
-        },
         update(req, res, next) {
             Term
                 .findOne({_id: req.params.id})

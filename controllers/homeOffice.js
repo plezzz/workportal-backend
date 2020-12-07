@@ -1,9 +1,9 @@
-const {Vacation} = require('../models');
+const {HomeOffice} = require('../models');
 
 module.exports = {
     get: {
         all(req, res, next) {
-            Vacation
+            HomeOffice
                 .find({})
                 .populate('approvedByLead', "-password")
                 .populate('approvedByAdmin', "-password")
@@ -11,14 +11,14 @@ module.exports = {
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
                 .lean()
-                .then(vacations => {
+                .then(homeOffices => {
                     res.status(200)
-                    res.send(vacations);
+                    res.send(homeOffices);
                 })
                 .catch(next)
         },
         details(req, res, next) {
-            Vacation
+            HomeOffice
                 .findOne({_id: req.params.id})
                 .populate('approvedByLead', "-password")
                 .populate('approvedByAdmin', "-password")
@@ -26,14 +26,14 @@ module.exports = {
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
                 .lean()
-                .then(vacation => {
+                .then(homeOffice => {
                     res.status(200)
-                    res.send(vacation);
+                    res.send(homeOffice);
                 })
                 .catch(next)
         },
         update(req, res, next) {
-            Vacation
+            HomeOffice
                 .findOne({_id: req.params.id})
                 .populate('approvedByLead', "-password")
                 .populate('approvedByAdmin', "-password")
@@ -41,9 +41,9 @@ module.exports = {
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
                 .lean()
-                .then(vacation => {
+                .then(homeOffice => {
                     res.status(200)
-                    res.send(vacation);
+                    res.send(homeOffice);
                 })
                 .catch(next)
         },
@@ -53,11 +53,11 @@ module.exports = {
         create: async function (req, res, next) {
             const createdBy = req.user._id;
             let {description, replacement, from, to} = req.body;
-            Vacation
+            HomeOffice
                 .create({description, replacement, from, to, createdBy})
-                .then(vacation => {
+                .then(homeOffice => {
                     res.status(201)
-                    res.send(vacation)
+                    res.send(homeOffice)
                 })
                 .catch(next)
         },
@@ -65,7 +65,7 @@ module.exports = {
             const id = req.params.id;
             const editedBy = req.user._id;
             let {description, replacement, from, to} = req.body;
-            Vacation
+            HomeOffice
                 .updateOne({_id: id}, {description, replacement, from, to, editedBy})
                 .then(data => {
                     res.status(201);
@@ -75,7 +75,7 @@ module.exports = {
         },
         delete(req, res, next) {
             const id = req.params.id;
-            Vacation
+            HomeOffice
                 .deleteOne({_id: id})
                 .then(() => {
                     res.status(200);

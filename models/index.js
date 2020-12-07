@@ -11,6 +11,8 @@ const getTermModel = require('./Term');
 const getVacationModel = require('./Vacation');
 const getMessageModel = require('./Message');
 const getRoleModel = require('./Role');
+const getSickModel = require('./Sick');
+const getHomeOfficeModel = require('./HomeOffice');
 
 module.exports = {
     User: getUserModel(mongoose, bcrypt),
@@ -22,5 +24,7 @@ module.exports = {
     Therm: getTermModel(mongoose),
     Vacation: getVacationModel(mongoose),
     Messages: getMessageModel(mongoose),
-    Role: getRoleModel(mongoose)
+    Role: getRoleModel(mongoose),
+    Sick: getSickModel(mongoose),
+    HomeOffice: getHomeOfficeModel(mongoose)
 };

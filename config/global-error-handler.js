@@ -9,9 +9,10 @@ module.exports = function globalErrorHandler(err, req, res, next) {
     console.log('========or=========');
     console.log(err._message || 'other format');
     console.log('====================');
-    res.status(200);
 
-    let message = [err] || ['SERVER ERROR'];
+
+    let message = [err.message] || ['SERVER ERROR'];
+
     // if (res.locals.validationErrorViewName) {
     //     res.send(res.locals.validationErrorViewName, {errors: err, ...req.body});
     //     return;
@@ -24,34 +25,45 @@ module.exports = function globalErrorHandler(err, req, res, next) {
 
     if (['jwt malformed'].includes(err.message)) {
         res.clearCookie(cookie);
-        res.redirect('user/login');
+        render(401,err.message)
+        return;
+    }
+    if (err.message.includes('jwt expire')) {
+        res.clearCookie(cookie);
+        render(401,['jwt expire'])
         return;
     }
 
     if (Object.values(errorLogin).includes(err.message)) {
-        render('user/login', message, true);
+        // res.status(401)
+        // console.log('check hre',err.message)
+        // res.send('need login');
+        render(401, message, true);
         return;
     }
 
     if (err._message === 'Login validation failed') {
         let messages = normalizeErrors(err.errors);
-        render('user/login', messages, true);
+        res.clearCookie(cookie);
+        render(401,messages)
+       // render('user/login', messages, true);
         return;
     }
 
     if (err._message === 'Course validation failed' || err._message === 'Validation failed') {
         let messages = normalizeErrors(err.errors);
-        render('course/create', messages, true);
+        render(200,messages)
         return;
     }
     if (err._message === 'Knowledge validation failed' || err._message === 'Validation failed') {
         let messages = normalizeErrors(err.errors);
-        render('knowledge/create', messages, true);
+        render(200,messages)
         return;
     }
     if (err._message === 'User validation failed') {
         let messages = normalizeErrors(err.errors);
-        render('user/register', messages, true);
+        res.status(401)
+        res.send(messages)
         return;
     }
 
@@ -67,12 +79,16 @@ module.exports = function globalErrorHandler(err, req, res, next) {
         return messages
     }
 
-    function render(path, message, obj = null) {
-        obj ? obj = req.body : null;
+    function render(status, message, obj = null) {
+        //obj ? obj = req.body : null;
+        res.status(status)
         res.send(message)
+
         //res.render(path, {message, obj});
     }
-
+    console.log(message)
+    res.status(401)
     res.send(message)
+
     //res.render('error/error', {message});
 };

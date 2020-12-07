@@ -21,9 +21,6 @@ module.exports = {
                 })
                 .catch(next)
         },
-        create(req, res) {
-            res.render('knowledge/create')
-        },
         update(req, res, next) {
             Tag
                 .findOne({_id: req.params.id})

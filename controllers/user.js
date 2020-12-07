@@ -3,18 +3,8 @@ const {jwt} = require('../utils');
 const {cookie} = require('../config');
 const {errorLogin} = require('../config/messages');
 
-let templateDir = (doc) => {
-    return `./user/${doc}`
-};
-
 module.exports = {
     get: {
-        login(req, res) {
-            res.render(templateDir('login'))
-        },
-        register(req, res) {
-            res.render(templateDir('register'))
-        },
         logout(req, res) {
             res.clearCookie(cookie)
             res.send({message: 'logged out'})
@@ -44,7 +34,7 @@ module.exports = {
         },
         details(req, res, next) {
             User
-                .findOne({_id: req.params.id})
+                .findOne({_id: req.user._id})
                 .populate('leadTeam', "-password")
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
@@ -54,13 +44,12 @@ module.exports = {
                 .populate('listKnowledge', "-password")
                 .populate('listTerms', "-password")
                 .lean()
-                .then(category => {
-                    res.render('knowledge/details', {category})
+                .then(user => {
+                    res.status(200)
+                    res.send(user)
+                    //res.json(user)
                 })
                 .catch(next)
-        },
-        create(req, res) {
-            res.render('knowledge/create')
         },
         update(req, res, next) {
             User
@@ -82,9 +71,19 @@ module.exports = {
     },
     post: {
         register(req, res, next) {
-            //console.log(req.body);
-            const createdBy = "5fafb2511c1b7b10bc09b191";
-            const {username, email, jobTitle, password, repeatPassword, leadTeam, firstName, lastName, isSupport, isAdmin} = {...req.body};
+            const createdBy = req.user._id;
+            const {
+                username,
+                email,
+                jobTitle,
+                password,
+                repeatPassword,
+                leadTeam,
+                firstName,
+                lastName,
+                isSupport,
+                isAdmin
+            } = {...req.body};
             User
                 .create({
                     username,
@@ -99,12 +98,8 @@ module.exports = {
                     isSupport,
                     isAdmin
                 },)
-                .then((user) => {
-                    //  console.log(user)
-                    const token = jwt.createToken(user._id);
-                    res.cookie(cookie, token, {httpOnly: true});
+                .then(() => {
                     res.status(200)
-                        .send(user);
                 })
                 .catch(next)
         },
@@ -124,9 +119,8 @@ module.exports = {
                     }
 
                     const token = jwt.createToken(user._id);
-
-                    // res.header('Access-Control-Allow-Credentials', 'true');
                     res.cookie(cookie, token, {httpOnly: true});
+                    res.header(cookie, token)
                     res.send(user)
                 })
                 .catch(next)

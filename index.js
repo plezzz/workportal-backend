@@ -11,7 +11,8 @@ require('./config/routes')(app);
 require('./config/database')()
     .then(() => {
         app.use(cors({
-            origin: '*',
+            //origin: origin,
+            origin: true,
             credentials: true,
         }));
 

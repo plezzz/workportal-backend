@@ -23,9 +23,6 @@ module.exports = {
                 })
                 .catch(next)
         },
-        create(req, res) {
-            res.render('categoryKnowledge/create')
-        },
         update(req, res, next) {
             CategoryTerm
                 .findOne({_id:req.params.id})

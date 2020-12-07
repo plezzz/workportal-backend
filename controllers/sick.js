@@ -1,49 +1,43 @@
-const {Vacation} = require('../models');
+const {Sick} = require('../models');
 
 module.exports = {
     get: {
         all(req, res, next) {
-            Vacation
+            Sick
                 .find({})
-                .populate('approvedByLead', "-password")
-                .populate('approvedByAdmin', "-password")
                 .populate('replacement', "-password")
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
                 .lean()
-                .then(vacations => {
+                .then(sicks => {
                     res.status(200)
-                    res.send(vacations);
+                    res.send(sicks);
                 })
                 .catch(next)
         },
         details(req, res, next) {
-            Vacation
+            Sick
                 .findOne({_id: req.params.id})
-                .populate('approvedByLead', "-password")
-                .populate('approvedByAdmin', "-password")
                 .populate('replacement', "-password")
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
                 .lean()
-                .then(vacation => {
+                .then(sick => {
                     res.status(200)
-                    res.send(vacation);
+                    res.send(sick);
                 })
                 .catch(next)
         },
         update(req, res, next) {
-            Vacation
+            Sick
                 .findOne({_id: req.params.id})
-                .populate('approvedByLead', "-password")
-                .populate('approvedByAdmin', "-password")
                 .populate('replacement', "-password")
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
                 .lean()
-                .then(vacation => {
+                .then(sick => {
                     res.status(200)
-                    res.send(vacation);
+                    res.send(sick);
                 })
                 .catch(next)
         },
@@ -53,11 +47,11 @@ module.exports = {
         create: async function (req, res, next) {
             const createdBy = req.user._id;
             let {description, replacement, from, to} = req.body;
-            Vacation
+            Sick
                 .create({description, replacement, from, to, createdBy})
-                .then(vacation => {
+                .then(sick => {
                     res.status(201)
-                    res.send(vacation)
+                    res.send(sick)
                 })
                 .catch(next)
         },
@@ -65,7 +59,7 @@ module.exports = {
             const id = req.params.id;
             const editedBy = req.user._id;
             let {description, replacement, from, to} = req.body;
-            Vacation
+            Sick
                 .updateOne({_id: id}, {description, replacement, from, to, editedBy})
                 .then(data => {
                     res.status(201);
@@ -75,7 +69,7 @@ module.exports = {
         },
         delete(req, res, next) {
             const id = req.params.id;
-            Vacation
+            Sick
                 .deleteOne({_id: id})
                 .then(() => {
                     res.status(200);

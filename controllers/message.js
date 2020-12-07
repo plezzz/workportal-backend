@@ -1,5 +1,4 @@
 const {Message, User} = require('../models');
-const {errorCommon} = require('../config/messages');
 
 module.exports = {
     get: {
@@ -22,9 +21,6 @@ module.exports = {
                     res.render('knowledge/details', {category})
                 })
                 .catch(next)
-        },
-        create(req, res) {
-            res.render('knowledge/create')
         },
     },
 
