@@ -3,9 +3,8 @@ let secretURL;
 if (env === 'production') {
          secretURL = process.env.secretDBURL
 }else{
-         secretURL = require('./secretURL');
+         secretURL = require('./secretURL2');
 }
-console.log('pesho')
 
 config =
      {
