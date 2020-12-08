@@ -1,11 +1,16 @@
-const url = require('./secretURL');
 const env = process.env.NODE_ENV || 'development';
-console.log(env)
-console.log(process.env)
+let secretURL;
+if (env === 'production') {
+         secretURL = process.env.secretDBURL
+}else{
+         secretURL = require('./secretURL');
+}
+console.log('pesho')
+
 config =
      {
         port: process.env.PORT || 3000,
-        dbURL: url || 'mongodb://localhost:27017/WorkPortal',
+        dbURL: secretURL || 'mongodb://localhost:27017/WorkPortal',
         origin: ['http://localhost:5555', 'http://localhost:4200'],
         template: 'hbs',
         publicDir: 'public',
