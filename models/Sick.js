@@ -8,10 +8,6 @@ module.exports = (mongoose) => {
         description: {
             type: String,
         },
-        replacement:{
-            type: ObjectId,
-            ref: 'User',
-        },
         from: {
             type: Date,
             required: [true, errorCommon.required('From date')]

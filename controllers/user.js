@@ -32,6 +32,20 @@ module.exports = {
                 })
                 .catch(next)
         },
+        allQuery(req, res, next) {
+            let query = req.query;
+            query={...query,isDisabled:false}
+            const user = req.user;
+            console.log('user:',user)
+            console.log('query:',query)
+            User
+                .find(query)
+                .lean()
+                .then(users => {
+                    res.send(users)
+                })
+                .catch(next)
+        },
         details(req, res, next) {
             User
                 .findOne({_id: req.user._id})
@@ -98,14 +112,14 @@ module.exports = {
                     isSupport,
                     isAdmin
                 },)
-                .then(() => {
-                    res.status(200)
+                .then((user) => {
+                    res.status(201)
+                    res.send({message:'Потребителя е създаден.',user:user})
                 })
                 .catch(next)
         },
         login(req, res, next) {
             const {username, password} = {...req.body};
-
             User.findOne({username})
                 .then((user) => {
                     return Promise.all([
@@ -119,6 +133,7 @@ module.exports = {
                     }
 
                     const token = jwt.createToken(user._id);
+                    res.clearCookie()
                     res.cookie(cookie, token, {httpOnly: true});
                     res.header(cookie, token)
                     res.send(user)

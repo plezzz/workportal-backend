@@ -2,7 +2,7 @@ const {cookie} = require('./');
 const {errorLogin} = require('../config/messages');
 
 module.exports = function globalErrorHandler(err, req, res, next) {
-   // console.log(err);
+  // console.log(err);
     console.log('====================');
     console.log('The message is');
     console.log(err.message);
@@ -12,7 +12,8 @@ module.exports = function globalErrorHandler(err, req, res, next) {
 
 
     let message = [err.message] || ['SERVER ERROR'];
-
+    if (err.message=== undefined)
+        err.message = [err._message];
     // if (res.locals.validationErrorViewName) {
     //     res.send(res.locals.validationErrorViewName, {errors: err, ...req.body});
     //     return;
@@ -62,8 +63,7 @@ module.exports = function globalErrorHandler(err, req, res, next) {
     }
     if (err._message === 'User validation failed') {
         let messages = normalizeErrors(err.errors);
-        res.status(401)
-        res.send(messages)
+       render(401,messages)
         return;
     }
 

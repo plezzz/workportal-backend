@@ -1,4 +1,19 @@
-const {home, user, error, knowledge, categoryKnowledge, categoryTerm, tag, job, vacation, message,role,sick,homeOffice} = require('../controllers');
+const {
+    home,
+    user,
+    error,
+    knowledge,
+    categoryKnowledge,
+    categoryTerm,
+    tag,
+    job,
+    vacation,
+    message,
+    role,
+    sick,
+    homeOffice,
+    holidays
+} = require('../controllers');
 const {checkAuth} = require("../utils");
 
 module.exports = (app) => {
@@ -13,6 +28,7 @@ module.exports = (app) => {
     // User
     app.get('/user/all', user.get.all)
     app.get('/user/details', user.get.details)
+    app.get('/user/allUsersQuery', user.get.allQuery)
 
     //Category Knowledge
     app.get('/categoryKnowledge', checkAuth(true), categoryKnowledge.get.all)
@@ -93,6 +109,8 @@ module.exports = (app) => {
     app.post('/homeOffice/update/:id', checkAuth(true), homeOffice.post.update)
     app.post('/homeOffice/delete/:id', checkAuth(true), homeOffice.post.delete)
 
+    //Holidays
+    app.get('/holidays', holidays.get.all)
     //Error
     app.get('*', error.get.displayError)
 }

@@ -5,7 +5,6 @@ module.exports = {
         all(req, res, next) {
             Sick
                 .find({})
-                .populate('replacement', "-password")
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
                 .lean()
@@ -18,7 +17,6 @@ module.exports = {
         details(req, res, next) {
             Sick
                 .findOne({_id: req.params.id})
-                .populate('replacement', "-password")
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
                 .lean()
@@ -31,7 +29,6 @@ module.exports = {
         update(req, res, next) {
             Sick
                 .findOne({_id: req.params.id})
-                .populate('replacement', "-password")
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
                 .lean()
