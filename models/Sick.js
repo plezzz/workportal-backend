@@ -2,7 +2,7 @@ const {errorCommon} = require('../config/messages');
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
-    const {String, ObjectId, Date} = Schema.Types;
+    const {String, ObjectId, Date, Number} = Schema.Types;
 
     const sickSchema = new Schema({
         description: {
@@ -16,6 +16,13 @@ module.exports = (mongoose) => {
             type: Date,
             required: [true, errorCommon.required('To date')]
         },
+        days:{
+            type: Number
+        },
+        category:{
+            type: String,
+            default: 'Болничен'
+        },
         createdBy: {
             type: ObjectId,
             ref: "User",
@@ -23,7 +30,7 @@ module.exports = (mongoose) => {
         editedBy: {
             type: ObjectId,
             ref: "User"
-        }
+        },
     }, {timestamps: true});
 
     return Model('Sick', sickSchema);

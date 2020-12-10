@@ -1,3 +1,4 @@
+const {diffDays} = require("../utils");
 const {Vacation} = require('../models');
 
 module.exports = {
@@ -53,8 +54,9 @@ module.exports = {
         create: async function (req, res, next) {
             const createdBy = req.user._id;
             let {description, replacement, from, to} = req.body;
+            let days = diffDays(from,to)
             Vacation
-                .create({description, replacement, from, to, createdBy})
+                .create({description, replacement, from, to, days,createdBy})
                 .then(vacation => {
                     res.status(201)
                     res.send(vacation)

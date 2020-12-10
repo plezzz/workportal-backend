@@ -2,7 +2,7 @@ const {errorCommon} = require('../config/messages');
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
-    const {String, ObjectId, Date, Boolean} = Schema.Types;
+    const {String, ObjectId, Date, Boolean, Number} = Schema.Types;
 
     const homeOfficeSchema = new Schema({
         description: {
@@ -20,6 +20,9 @@ module.exports = (mongoose) => {
             type: Date,
             required: [true, errorCommon.required('To date')]
         },
+        days:{
+            type: Number
+        },
         isApprovedByAdmin: {
             type: Boolean,
             default: false
@@ -28,6 +31,10 @@ module.exports = (mongoose) => {
             type: String,
             default: 'изчакване',
             enum: ['изчакване', 'одобрена', 'отказана']
+        },
+        category:{
+            type: String,
+            default: 'Работа от вкъщи'
         },
         createdBy: {
             type: ObjectId,

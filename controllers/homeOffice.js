@@ -1,3 +1,4 @@
+const {diffDays} = require("../utils");
 const {HomeOffice} = require('../models');
 
 module.exports = {
@@ -53,8 +54,9 @@ module.exports = {
         create: async function (req, res, next) {
             const createdBy = req.user._id;
             let {description, replacement, from, to} = req.body;
+            let days = diffDays(from,to)
             HomeOffice
-                .create({description, replacement, from, to, createdBy})
+                .create({description, replacement, from, to,days, createdBy})
                 .then(homeOffice => {
                     res.status(201)
                     res.send(homeOffice)

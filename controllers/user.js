@@ -47,6 +47,7 @@ module.exports = {
                 .catch(next)
         },
         details(req, res, next) {
+            console.log('Check user id:', req.user._id)
             User
                 .findOne({_id: req.user._id})
                 .populate('leadTeam', "-password")
@@ -86,6 +87,8 @@ module.exports = {
     post: {
         register(req, res, next) {
             const createdBy = req.user._id;
+            console.log('here')
+            console.log('createdBy', createdBy)
             const {
                 username,
                 email,

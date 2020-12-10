@@ -1,3 +1,4 @@
+const {diffDays} = require("../utils");
 const {Sick} = require('../models');
 
 module.exports = {
@@ -16,7 +17,7 @@ module.exports = {
         },
         details(req, res, next) {
             Sick
-                .findOne({_id: req.params.id})
+                .findOne({_id: req.query.id})
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
                 .lean()
@@ -44,8 +45,9 @@ module.exports = {
         create: async function (req, res, next) {
             const createdBy = req.user._id;
             let {description, replacement, from, to} = req.body;
+            let days = diffDays(from,to)
             Sick
-                .create({description, replacement, from, to, createdBy})
+                .create({description, replacement, from, to,days, createdBy})
                 .then(sick => {
                     res.status(201)
                     res.send(sick)

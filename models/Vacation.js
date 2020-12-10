@@ -2,11 +2,14 @@ const {errorCommon, errorVacation} = require('../config/messages');
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
-    const {String, ObjectId, Date, Boolean} = Schema.Types;
+    const {String, ObjectId, Date, Boolean, Number} = Schema.Types;
 
     const vacationSchema = new Schema({
         description: {
             type: String,
+        },
+        days:{
+            type: Number
         },
         approvedByLead: {
             type: ObjectId,
@@ -40,6 +43,10 @@ module.exports = (mongoose) => {
             type: String,
             default: 'изчакване',
             enum: ['изчакване','за одобрение от началник', 'за одобрение от шеф', 'одобрена', 'отказана']
+        },
+        category:{
+            type: String,
+            default: 'Отпуск'
         },
         createdBy: {
             type: ObjectId,
