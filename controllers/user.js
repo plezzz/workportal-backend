@@ -170,7 +170,7 @@ module.exports = {
                     const token = jwt.createToken(user._id);
                     // console.log(now)
                     res.clearCookie()
-                    res.cookie(cookie, token, {httpOnly: true, maxAge: 1.728e+9});
+                    res.cookie(cookie, token, {httpOnly: true, maxAge: 1.728e+9,sameSite: "strict"});
                     res.header(cookie, token)
                     res.send(user)
                 })
