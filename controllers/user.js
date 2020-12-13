@@ -66,12 +66,6 @@ module.exports = {
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
                 .populate('VacationDetails', "-password")
-                .populate({
-                    path : 'messageReceived',
-                    populate : {
-                        path : 'createdBy'
-                    }
-                })
                 .populate('messageSend', "-password")
                 .populate('listKnowledge', "-password")
                 .populate('listTerms', "-password")
