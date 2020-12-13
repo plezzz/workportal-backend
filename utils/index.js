@@ -4,7 +4,8 @@ const checkAuth = require('./check-auth')
 const loginValidator = require('./login-validator')
 const tagsCheck = require('./tags-check')
 const holiday = require('./holydays')
-const diffDays = require('./diffDays')
+const diffTime = require('./diffDays')
+const mHoliday = require('./momentBulgariaHolidays')
 
 module.exports = {
     jwt,
@@ -13,5 +14,6 @@ module.exports = {
     loginValidator,
     tagsCheck,
     holiday,
-    diffDays
+    diffTime,
+    mHoliday
 }

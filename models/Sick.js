@@ -19,6 +19,9 @@ module.exports = (mongoose) => {
         days:{
             type: Number
         },
+        workDays:{
+            type: Number
+        },
         category:{
             type: String,
             default: 'Болничен'
@@ -31,6 +34,10 @@ module.exports = (mongoose) => {
             type: ObjectId,
             ref: "User"
         },
+        status: {
+            type: String,
+            default: 'одобрена'
+        }
     }, {timestamps: true});
 
     return Model('Sick', sickSchema);

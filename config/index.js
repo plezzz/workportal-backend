@@ -16,7 +16,7 @@ config =
         cookie: 'x-auth-token',
         secret: 'SuperSecretSecret',
         saltRounds: 11,
-        expire: '1h',
+        expire: '20d',
         pricePrecision: 100
     }
 

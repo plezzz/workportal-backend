@@ -1,9 +1,9 @@
-const {Message, User} = require('../models');
+const {User, Messages} = require('../models');
 
 module.exports = {
     get: {
         all(req, res, next) {
-            Message
+            Messages
                 .find({isDisabled: false})
                 .populate('createdBy', "-password")
                 .lean()
@@ -12,13 +12,15 @@ module.exports = {
                 })
                 .catch(next)
         },
+
         details(req, res, next) {
-            Message
+            //Messages.updateMany( {}, { eventID: "5fd48e8467b841159cfc87a5" }  ).then(categories =>{console.log(categories)})
+            Messages
                 .findOne({_id: req.params.id})
-                .populate('createdBy', "-password")
                 .lean()
-                .then(category => {
-                    res.render('knowledge/details', {category})
+                .then(message => {
+                    res.status(200)
+                    res.send(message)
                 })
                 .catch(next)
         },
@@ -29,7 +31,7 @@ module.exports = {
             const createdBy = req.user._id;
             let {title, description, receiver} = req.body;
 
-            Message
+            Messages
                 .create({title, description, receiver, createdBy})
                 .then(message => {
                     User.updateOne({_id: createdBy}, {$push: {messageSent: message._id}})
@@ -38,18 +40,40 @@ module.exports = {
                 })
                 .then(message => {
                     res.send(message)
-                    //res.redirect('/')
                 })
                 .catch(next)
         },
         delete(req, res, next) {
             const id = req.params.id;
-            Message
+            Messages
                 .deleteOne({_id: id})
                 .then(() => {
                     res.redirect('/')
                 })
                 .catch(next)
-        }
+        },
+        update(req, res, next) {
+            console.log(req.params.id)
+            Messages
+                .findOneAndUpdate({_id: req.params.id}, {isRead: true})
+                .then(() => {
+                    res.status(200)
+                    res.send({message: 'message is read'})
+                })
+                .catch(next)
+        },
+        getAll(req, res, next) {
+            let {ids,isRead} = req.body;
+            Messages
+                .find(
+                    {_id: {$in: ids}, isRead: isRead})
+                .populate('createdBy')
+                .then(messages => {
+                    console.log(messages)
+                    res.status(200)
+                    res.send(messages)
+                })
+                .catch(next)
+        },
     }
 }

@@ -46,6 +46,18 @@ module.exports = {
                 })
                 .catch(next)
         },
+        user(req, res, next) {
+            User
+                .findOne({_id: req.params.id})
+                .populate('jobTitle')
+                .lean()
+                .then(user => {
+                    res.status(200)
+                    res.send(user)
+                    //res.json(user)
+                })
+                .catch(next)
+        },
         details(req, res, next) {
             console.log('Check user id:', req.user._id)
             User
@@ -54,7 +66,12 @@ module.exports = {
                 .populate('createdBy', "-password")
                 .populate('editedBy', "-password")
                 .populate('VacationDetails', "-password")
-                .populate('messageReceived', "-password")
+                .populate({
+                    path : 'messageReceived',
+                    populate : {
+                        path : 'createdBy'
+                    }
+                })
                 .populate('messageSend', "-password")
                 .populate('listKnowledge', "-password")
                 .populate('listTerms', "-password")
@@ -63,6 +80,17 @@ module.exports = {
                     res.status(200)
                     res.send(user)
                     //res.json(user)
+                })
+                .catch(next)
+        },
+        delete(req, res, next) {
+            let id = req.params.id;
+            console.log(id)
+            User
+                .deleteOne({_id: id})
+                .then(() => {
+                    res.status(200)
+                    res.send({message: 'Successfully deleted user'})
                 })
                 .catch(next)
         },
@@ -99,7 +127,8 @@ module.exports = {
                 firstName,
                 lastName,
                 isSupport,
-                isAdmin
+                isAdmin,
+                isLead
             } = {...req.body};
             User
                 .create({
@@ -113,7 +142,8 @@ module.exports = {
                     firstName,
                     lastName,
                     isSupport,
-                    isAdmin
+                    isAdmin,
+                    isLead
                 },)
                 .then((user) => {
                     res.status(201)
@@ -134,10 +164,13 @@ module.exports = {
                     if (!isPasswordMatched) {
                         throw new Error(errorLogin.password)
                     }
-
+                   //  let now = new Date();
+                   // now.setTime(3600)
+                   //  console.log(now.getTime)
                     const token = jwt.createToken(user._id);
+                    // console.log(now)
                     res.clearCookie()
-                    res.cookie(cookie, token, {httpOnly: true});
+                    res.cookie(cookie, token, {httpOnly: true, maxAge: 1.728e+9});
                     res.header(cookie, token)
                     res.send(user)
                 })

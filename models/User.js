@@ -75,7 +75,7 @@ module.exports = (mongoose, bcrypt) => {
         }],
         messageReceived: [{
             type: ObjectId,
-            ref: "Message"
+            ref: "Message",
         }],
         messageSend: [{
             type: ObjectId,

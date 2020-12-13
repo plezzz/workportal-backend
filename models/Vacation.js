@@ -1,4 +1,4 @@
-const {errorCommon, errorVacation} = require('../config/messages');
+const {errorCommon} = require('../config/messages');
 
 module.exports = (mongoose) => {
     const {Schema, model: Model} = mongoose;
@@ -9,6 +9,9 @@ module.exports = (mongoose) => {
             type: String,
         },
         days:{
+            type: Number
+        },
+        workDays:{
             type: Number
         },
         approvedByLead: {

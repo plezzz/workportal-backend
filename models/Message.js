@@ -7,7 +7,10 @@ module.exports = (mongoose) => {
     const messageSchema = new Schema({
         title: {
             type: String,
-            required: [true, errorCommon.required('Title')]
+            required: [true, errorCommon.required('Title')],
+            sparse: true,
+            unique: false,
+            index: true,
         },
         description:{
             type: String,
@@ -20,13 +23,20 @@ module.exports = (mongoose) => {
         receiver:{
             type: ObjectId,
             ref: "User",
-            required: true
         },
         createdBy: {
             type: ObjectId,
             ref: "User",
             required: true
         },
+        category: {
+            type: String,
+            default: 'user'
+        },
+        eventID:{
+            type: ObjectId,
+            ref: "Event",
+        }
     }, {timestamps: true});
 
     return Model('Message', messageSchema);
